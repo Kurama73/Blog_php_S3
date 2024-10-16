@@ -4,8 +4,7 @@
 
     // Récupération de l'article via son ID
     $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
-    $filtre = isset($_GET['filtre']) ? $_GET['filtre'] : '';
-    $scrollPos = isset($_GET['scrollPos']) ? $_GET['scrollPos'] : 0;
+    $filter = isset($_GET['filter']) ? $_GET['filter'] : '';
 
     $stmt = $dbh->prepare("SELECT * FROM articles WHERE id = :id");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -16,11 +15,11 @@
     $stmtComments = $dbh->prepare("SELECT * FROM commentaires WHERE id_article = :id ORDER BY date DESC");
     $stmtComments->bindValue(':id', $id, PDO::PARAM_INT);
     $stmtComments->execute();
-    $commentaires = $stmtComments->fetchAll(PDO::FETCH_ASSOC);
+    $comments = $stmtComments->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +30,7 @@
     <main class="container">
 
         <!-- Bouton de retour -->
-        <a href="accueil.php?filtre=<?php echo urlencode($filtre); ?>&scrollPos=<?php echo $scrollPos; ?>" class="back-button">
+        <a href="home.php" class="return-button">
             <div class="circle">
                 <span class="arrow">&larr;</span>
             </div>
@@ -45,33 +44,25 @@
         </div>
 
         <!-- Ajout commentaire -->
-        <div class="ajouter-commentaire-block">
+        <div class="add-comment-block">
             <h3>Ajouter un commentaire</h3>
-            <form method="POST" action="ajouter_commentaire.php">
+            <form method="POST" action="add_comment.php">
                 <input type="hidden" name="id_article" value="<?php echo $article['id']; ?>">
-                <textarea name="commentaire" rows="4" placeholder="Votre commentaire"></textarea>
-                <input type="submit" value="Envoyer">
+                <textarea name="comment" rows="4" placeholder="Your comment"></textarea>
+                <input type="submit" value="Send">
             </form>
         </div>
 
         <!-- Liste des commentaires -->
-        <div class="commentaires-block">
-            <h3>Commentaires</h3>
-            <?php foreach ($commentaires as $commentaire): ?>
-                <div class="commentaire-item">
-                    <strong><?php echo htmlspecialchars($commentaire['pseudo']); ?> / <?php echo htmlspecialchars($commentaire['date']); ?></strong>
-                    <p><?php echo nl2br(htmlspecialchars($commentaire['contenu'])); ?></p>
+        <div class="comments-block">
+            <h3>Commentaire(s)</h3>
+            <?php foreach ($comments as $comment): ?>
+                <div class="comment">
+                    <?php echo htmlspecialchars($comment['pseudo']); ?> / <?php echo htmlspecialchars($comment['date']); ?>
+                    <p><?php echo nl2br(htmlspecialchars($comment['contenu'])); ?></p>
                 </div>
             <?php endforeach; ?>
         </div>
     </main>
-
-    <script>
-        // Sauvegarder la position de scroll avant de quitter la page
-        document.querySelector('.back-button').addEventListener('click', function() {
-            let scrollPosition = window.scrollY;
-            this.href += '&scrollPos=' + scrollPosition;
-        });
-    </script>
 </body>
 </html>

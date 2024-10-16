@@ -4,21 +4,21 @@
 
     require 'pdo.php';
 
-    // Filtrage par pseudo si nécessaire
-    $filtre = isset($_POST['filtre']) ? $_POST['filtre'] : '';
-    if ($filtre) {
+    // Filtrage par pseudo
+    $filter = isset($_POST['filter']) ? $_POST['filter'] : '';
+    if ($filter) {
         $stmt = $dbh->prepare("
-            SELECT articles.*, COUNT(commentaires.id) AS nb_commentaires 
+            SELECT articles.*, COUNT(commentaires.id) AS comment_count 
             FROM articles 
             LEFT JOIN commentaires ON articles.id = commentaires.id_article 
-            WHERE articles.pseudo LIKE :filtre 
+            WHERE articles.pseudo LIKE :filter 
             GROUP BY articles.id 
             ORDER BY date DESC
         ");
-        $stmt->bindValue(':filtre', '%' . $filtre . '%');
+        $stmt->bindValue(':filter', '%' . $filter . '%');
     } else {
         $stmt = $dbh->prepare("
-            SELECT articles.*, COUNT(commentaires.id) AS nb_commentaires 
+            SELECT articles.*, COUNT(commentaires.id) AS comment_count 
             FROM articles 
             LEFT JOIN commentaires ON articles.id = commentaires.id_article 
             GROUP BY articles.id 
@@ -31,7 +31,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,31 +40,33 @@
 </head>
 <body>
     <main>
-        <!-- Barre de recherche -->
-        <div class="filtre">
-            <form method="POST">
-                <input type="text" name="filtre" id="filtre" placeholder="Filtrer par pseudo" value="<?php echo htmlspecialchars($filtre); ?>">
-                <input type="submit" value="Filtrer">
-            </form>
+        <div class="header">
+            <!-- Filtre -->
+            <div class="filter">
+                <form method="POST">
+                    <input type="text" name="filter" id="filter" placeholder="Filter by username" value="<?php echo htmlspecialchars($filter); ?>">
+                    <input type="submit" value="Filter">
+                </form>
+            </div>
+
+            <!-- Bouton créer un article -->
+            <div class="create-article">
+                <a href="create_article.php">Créer un article</a>
+            </div>
         </div>
 
         <!-- Articles -->
         <div class="articles">
             <?php foreach ($articles as $article): ?>
-            <a href="article.php?id=<?php echo $article['id']; ?>&filtre=<?php echo urlencode($filtre); ?>" class="article_lien">
+            <a href="article.php?id=<?php echo $article['id']; ?>&filter=<?php echo urlencode($filter); ?>" class="article_link">
                 <div class="article">
                     <h2><?php echo htmlspecialchars($article['pseudo']); ?> / <?php echo htmlspecialchars($article['date']); ?> / <?php echo htmlspecialchars($article['categorie']); ?></h2>
                     <h1><em><?php echo htmlspecialchars($article['titre']); ?></em></h1>
                     <p><?php echo nl2br(htmlspecialchars($article['description'])); ?></p>
-                    <h2><?php echo htmlspecialchars($article['nb_commentaires']); ?> commentaire(s)</h2>
+                    <h2><?php echo htmlspecialchars($article['comment_count']); ?> commentaire(s)</h2>
                 </div>
             </a>
             <?php endforeach; ?>
-        </div>
-
-        <!-- Bouton créer un article -->
-        <div class="creer-article">
-            <a href="creer_article.php">Créer un article</a>
         </div>
     </main>
 </body>
