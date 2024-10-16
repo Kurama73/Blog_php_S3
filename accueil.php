@@ -36,7 +36,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Style.css">
 </head>
 <body>
     <main>
@@ -44,8 +44,8 @@
             <!-- Filtre -->
             <div class="filter">
                 <form method="POST">
-                    <input type="text" name="filter" id="filter" placeholder="Filter by username" value="<?php echo htmlspecialchars($filter); ?>">
-                    <input type="submit" value="Filter">
+                    <input type="text" name="filter" id="filter" placeholder="Filtrer par pseudo" value="<?php echo htmlspecialchars($filter); ?>">
+                    <input type="submit" value="Filtrer">
                 </form>
             </div>
 
