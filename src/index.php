@@ -3,7 +3,10 @@
 require_once('header.php');
 
 // Destroying all previous session variables
-session_destroy();
+session_unset();
+
+// Initialization of exception variables
+$ex_password = null;
 
 if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
     if (str_contains($_POST["in-email"], "@")) {
@@ -14,24 +17,26 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
         // Database recovery
         try {
             // Email and password query in database
-            $stmt = $con->prepare("SELECT email_utilisateur, mdp_utilisateur FROM utilisateur");
+            $stmt = $con->prepare("SELECT email, mdp FROM utilisateur");
             $res = $stmt->execute();
 
             // Comparison between input data and database
             foreach ($stmt as $row) {
-                if ($row['email_utilisateur'] == $_SESSION["email"]) {
-                    if ($row['mdp_utilisateur'] == $_SESSION["password"]) {
+                if ($row['email'] == $_SESSION["email"]) {
+                    if ($row['mdp'] == $_SESSION["password"]) {
                         header('Location: home.php');
+                        exit();
 
                     } else {
-                        echo 'Password not recognized, please try again';
+                        $ex_password = "Password not recognized, please try again!";
                     }
-                    exit();
                 }
             }
 
-            header('Location: choose-username.php');
-            exit();
+            if ($ex_password == null) {
+                header('Location: choose-username.php');
+                exit();
+            }
 
         } catch (PDOException $e) {
             die('PDO error: ' . $e->getMessage());
@@ -49,25 +54,21 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
 </head>
 <body>
 
-<div style="display: block; width: 200px; text-align: center; margin: auto">
-    <h1>Login</h1>
+<div class="block m-auto p-8 max-w-sm text-center bg-primary-500">
+    <h1 class="text-xl">Login</h1>
 
-    <form method="post" action="index.php" style="display: flex; flex-direction: column;">
+    <form method="post" action="index.php" class="flex flex-col" >
         <input type="email" name="in-email" placeholder="E-mail" required>
         <input type="password" name="in-password" placeholder="Password" required>
         <input type="submit" name="sb-login" value="Login">
     </form>
 
-    <style>
-        input {
-            margin-bottom: 10px;
-            padding: 5px;
-        }
-    </style>
+    <p><?php echo $ex_password ?></p>
 
 </div>
 

@@ -9,7 +9,7 @@ if (!empty($_POST["in-username"])) {
 
     try {
         // Adding the new user in the database
-        $stmt = $con->prepare("INSERT INTO UTILISATEUR (email_utilisateur, mdp_utilisateur, pseudo_utilisateur, admin) VALUES (?, ?, ?, ?);");
+        $stmt = $con->prepare("INSERT INTO UTILISATEUR (email, mdp, pseudo, admin) VALUES (?, ?, ?, ?);");
         $stmt->bindParam(1, $email);
         $stmt->bindParam(2, $mdp);
         $stmt->bindParam(3, $pseudo);
