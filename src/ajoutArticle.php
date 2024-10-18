@@ -1,4 +1,54 @@
 
+<?php
+    session_start();
+
+    require "redirection.php";
+
+    require "pdo.php";
+
+    
+
+    if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]) && !empty($_POST["article"]) && isset($_POST["categorie"]) && !empty($_POST["categorie"])) {
+        if (strlen(isset($_POST["titre"])) > 100) {
+            echo "Le titre doit etre inférieur a 100 char";
+            exit;
+        } else if (strlen(isset($_POST["article"])) > 280) {
+            echo "L'article doit faire moins de 280 char";
+        }
+
+
+        //recuperation id_utilisateur
+        $stmt = $con->prepare("SELECT id_utilisateur FROM utilisateur WHERE pseudo = ?");
+        $stmt->bindParam(1, $_SESSION["username"]);
+        $stmt->execute();
+        $idUtilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $stmt = $con->prepare("INSERT INTO article (titre,description,id_utilisateur) VALUES (?,?,?)");
+        $stmt->bindParam(1, $_POST["titre"]);
+        $stmt->bindParam(2, $_POST["article"]);
+        $stmt->bindParam(3, $idUtilisateur["id_utilisateur"]);
+        $stmt->execute();
+
+        $lastArticleId = $con->lastInsertId();
+    
+        //boucler pr les catégories
+        foreach ($_POST["categorie"] as $idCategorie) {
+
+            $stmt = $con->prepare("INSERT INTO reference (id_article, id_categorie) VALUES (?,?)");
+            $stmt->bindParam(1, $lastArticleId);
+            $stmt->bindParam(2, $idCategorie);
+            $stmt->execute();
+
+        }
+
+        header("Location: ajoutArticle.php");
+        exit;
+    
+    }
+    
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -10,12 +60,9 @@
 </head>
 <body>
     <main>
-    
 
         <form action="ajoutArticle.php" method="post">
-
-
-
+            
             <label>Titre (100 char max)</label> <br>
             <input type="text" name="titre" maxlength="100" required> <br>
 
@@ -48,70 +95,6 @@
 
             <input type="submit" value="Annuler">
         </form>
-
-
-        <?php
-            session_start();
-
-            if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
-
-                header("Location: index.php");
-                exit;
-            }
-
-            if (!isset($_SESSION["username"]) || empty($_SESSION["username"] )) {
-                header("Location: choose-username.php");
-                exit;
-            }
-
-            require "pdo.php";
-
-            
-
-            if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]) && !empty($_POST["article"]) && isset($_POST["categorie"]) && !empty($_POST["categorie"])) {
-                if (strlen(isset($_POST["titre"])) > 100) {
-                    echo "Le titre doit etre inférieur a 100 char";
-                    exit;
-                } else if (strlen(isset($_POST["article"])) > 280) {
-                    echo "L'article doit faire moins de 280 char";
-                }
-
-
-                //recuperation id_utilisateur
-                $stmt = $con->prepare("SELECT id_utilisateur FROM utilisateur WHERE pseudo = ?");
-                $stmt->bindParam(1, $_SESSION["username"]);
-                $stmt->execute();
-                $idUtilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                $stmt = $con->prepare("INSERT INTO article (titre,description,id_utilisateur) VALUES (?,?,?)");
-                $stmt->bindParam(1, $_POST["titre"]);
-                $stmt->bindParam(2, $_POST["article"]);
-                $stmt->bindParam(3, $idUtilisateur["id_utilisateur"]);
-                $stmt->execute();
-
-                $lastArticleId = $con->lastInsertId();
-            
-                //boucler pr les catégories
-                foreach ($_POST["categorie"] as $idCategorie) {
-
-                    $stmt = $con->prepare("INSERT INTO reference (id_article, id_categorie) VALUES (?,?)");
-                    $stmt->bindParam(1, $lastArticleId);
-                    $stmt->bindParam(2, $idCategorie);
-                    $stmt->execute();
-
-                }
-
-                header("Location: ajoutArticle.php");
-                exit;
-            
-            }
-            
-
-
-        ?>
-
-
-
 
     </main>
 </body>

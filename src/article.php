@@ -1,6 +1,7 @@
 <?php
 // Adding header
 require_once('header.php');
+require "redirection.php";
 
 // Récupération de l'article via son ID
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;

@@ -1,14 +1,7 @@
 <?php
 // Adding header
 require_once('header.php');
-
-if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
-
-    header("Location: index.php");
-    exit;
-}
-
-
+require "redirection.php";
 // Filtrage par pseudo
 $filter = isset($_GET['filter']) ? $_GET['filter'] : '';
 if ($filter) {
