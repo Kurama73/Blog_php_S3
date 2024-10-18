@@ -35,7 +35,7 @@
         grid-template-columns: 20% 1fr 20%;
     }
 
-    .home-header input {
+    .home-header > form input {
         @apply border-black border-0 rounded-3xl px-2 py-2;
     }
 }
