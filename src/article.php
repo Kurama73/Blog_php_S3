@@ -47,6 +47,7 @@ if (!empty($_POST["comment"])) {
     header("Location: Article.php?id=" . $id);
     exit;
 }
+?>
 
 
 <!DOCTYPE html>
