@@ -51,7 +51,7 @@
 
 
         <?php
-        /*
+            session_start();
 
             if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
 
@@ -63,8 +63,6 @@
                 header("Location: choose-username.php");
                 exit;
             }
-*/
-            session_start();
 
             require "pdo.php";
 
