@@ -56,7 +56,7 @@ $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <!-- Bouton créer un article -->
         <div class="create-article">
-            <a href="create_article.php">Créer un article</a>
+            <a href="ajoutArticle.php">Créer un article</a>
         </div>
 
         <?php
