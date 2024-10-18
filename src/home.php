@@ -33,6 +33,7 @@ if ($filter) {
 }
 
 $stmt->execute();
+$nb_row = $stmt->rowCount();
 $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
@@ -46,8 +47,8 @@ $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Blog</title>
 </head>
 <body>
-<main class="p-2">
-    <div class="home-header items-center">
+<main class="max-w-2xl py-10 m-auto">
+    <div class="home-header items-center mb-9">
         <form method="get" class="col-start-2 text-center">
             <input type="text" name="filter" placeholder="Filter by username"
                    value="<?php echo htmlspecialchars($filter); ?>" class="w-4/6">
@@ -78,15 +79,24 @@ $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <!-- Article -->
-    <div class="flex flex-col items-center w-full m-auto ">
+    <div class="flex flex-col w-full m-auto">
         <?php foreach ($article as $row): ?>
-            <a href="article.php?id=<?php echo $row['id_article']; ?>&filter=<?php echo urlencode($filter); ?>"
-               class="article_link">
-                <div class="">
+            <?php
+            if ($row == $article[0]) {
+                $border_radius = "rounded-t-xl";
+            } else if ($row == $article[$nb_row - 1]) {
+                $border_radius = "rounded-b-xl";
+            } else {
+                $border_radius = "rounded-none";
+            }
+            ?>
+
+            <a href="article.php?id=<?php echo $row['id_article']; ?>&filter=<?php echo urlencode($filter); ?>">
+                <div class="w-full bg-gray-300 px-4 py-5 shadow-xl border-primary-400 border-b-2 hover:bg-gray-250 <?php echo $border_radius; ?>">
                     <!--<h2><?php echo htmlspecialchars($row['pseudo']); ?> / <?php echo htmlspecialchars($row['date']); ?> / <?php echo htmlspecialchars($row['categorie']); ?></h2> -->
-                    <h1><em><?php echo htmlspecialchars($row['titre']); ?></em></h1>
+                    <h1 class="font-bold"><?php echo htmlspecialchars($row['titre']); ?></h1>
                     <p><?php echo nl2br(htmlspecialchars($row['description'])); ?></p>
-                    <h2><?php echo htmlspecialchars($row['comment_count']); ?> commentaire(s)</h2>
+                    <h2 class="text-md">&#128172;<?php echo htmlspecialchars($row['comment_count']); ?></h2>
                 </div>
             </a>
         <?php endforeach; ?>
