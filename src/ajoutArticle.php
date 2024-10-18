@@ -6,13 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
-    <link rel="stylesheet" href="style-ajout-article.css">
+    <link rel="stylesheet" href="styleAjoutArticle.css">
 </head>
 <body>
     <main>
     
 
-        <form action="ajout-article.php" method="post">
+        <form action="ajoutArticle.php" method="post">
 
 
 
@@ -29,7 +29,7 @@
 
         </form>
 
-        <form action="ajout-article.php" method="post">
+        <form action="ajoutArticle.php" method="post">
 
             <input type="submit" value="Annuler">
         </form>
@@ -119,7 +119,7 @@
                     $stmt->execute();
                 }
 
-                header("Location: ajout-article.php");
+                header("Location: ajoutArticle.php");
                 exit;
             
             }
