@@ -23,11 +23,19 @@ $stmtComments = $con->prepare("SELECT * FROM commentaire WHERE id_commentaire = 
 $stmtComments->bindValue(':id', $id, PDO::PARAM_INT);
 $stmtComments->execute();
 $comments = $stmtComments->fetchAll(PDO::FETCH_ASSOC);
+
+// Insertion commentaire
+if (!empty($_POST["comment"]) && !empty($_POST["comment"])) 
+    $stmt = $con->prepare("INSERT INTO commentaire (contenu, id_article, id_utilisateur) VALUES (?,?,?)");
+    $stmt->bindParam(1, $_POST["comment"]);
+    $stmt->bindParam(2, $id);
+    $stmt->bindParam(3, $_SESSION["id"]);
+    $stmtComments->execute();
 ?>
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,8 +54,7 @@ $comments = $stmtComments->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Article -->
     <div class="article-block">
-        <h2 class="text-xl"><?php echo htmlspecialchars($article[0]['pseudo']); ?> / <?php echo htmlspecialchars($article[0]['date']); ?>
-            / <?php echo htmlspecialchars($article[0]['nom']); ?></h2>
+        <h2 class="text-xl"><?php echo htmlspecialchars($article[0]['pseudo']); ?> / <?php echo htmlspecialchars($article[0]['date']);?></h2>
         <h1 class="text-2xl"><?php echo htmlspecialchars($article[0]['titre']); ?></h1>
         <p><?php echo nl2br(htmlspecialchars($article[0]['description'])); ?></p>
     </div>
@@ -55,8 +62,7 @@ $comments = $stmtComments->fetchAll(PDO::FETCH_ASSOC);
     <!-- Ajout commentaire -->
     <div class="add-comment-block">
         <h3>Ajouter un commentaire</h3>
-        <form method="POST" action="add_comment.php">
-            <input type="hidden" name="id_article" value="<?php echo $article[0]['id_article']; ?>">
+        <form method="POST">
             <textarea name="comment" rows="4" placeholder="Your comment"></textarea>
             <input type="submit" value="Send">
         </form>
