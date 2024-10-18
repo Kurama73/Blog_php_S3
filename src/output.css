@@ -671,20 +671,8 @@ body {
   grid-column-start: 3;
 }
 
-.row-start-2 {
-  grid-row-start: 2;
-}
-
 .m-auto {
   margin: auto;
-}
-
-.mb-10 {
-  margin-bottom: 2.5rem;
-}
-
-.mb-20 {
-  margin-bottom: 5rem;
 }
 
 .flex {
@@ -727,10 +715,6 @@ body {
 .bg-red-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-}
-
-.p-10 {
-  padding: 2.5rem;
 }
 
 .p-2 {

@@ -36,32 +36,26 @@ $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main>
-    <div class="header">
-        <!-- Filtre -->
-        <div class="filter">
-            <form method="get">
-                <input type="text" name="filter" id="filter" placeholder="Filtrer par pseudo"
-                       value="<?php echo htmlspecialchars($filter); ?>">
-                <input type="submit" value="Filtrer">
-            </form>
-        </div>
+<main class="p-2">
+    <div class="home-header items-center">
+        <form method="get" class="col-start-2 text-center">
+            <input type="text" name="filter" placeholder="Filter by username"
+                   value="<?php echo htmlspecialchars($filter); ?>" class="w-4/6">
+            <input type="submit" name="bt-filter" value="Filter">
+        </form>
 
-        <!-- Bouton créer un article -->
-        <div class="create-article">
-            <a href="create_article.php">Créer un article</a>
-        </div>
+        <!-- Button create an article -->
+        <input type="button" name="bt-create-article" value="Create an article" class="col-start-3 ">
     </div>
 
-    <!-- Articles -->
-    <div class="articles">
+    <!-- Article -->
+    <div class="flex flex-col items-center w-full m-auto ">
         <?php foreach ($article as $row): ?>
             <a href="article.php?id=<?php echo $row['id_article']; ?>&filter=<?php echo urlencode($filter); ?>"
                class="article_link">
-                <div class="article">
+                <div class="">
                     <!--<h2><?php echo htmlspecialchars($row['pseudo']); ?> / <?php echo htmlspecialchars($row['date']); ?> / <?php echo htmlspecialchars($row['categorie']); ?></h2> -->
                     <h1><em><?php echo htmlspecialchars($row['titre']); ?></em></h1>
                     <p><?php echo nl2br(htmlspecialchars($row['description'])); ?></p>
