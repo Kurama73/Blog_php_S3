@@ -27,7 +27,7 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
                 if ($row['email'] == $_SESSION["email"]) {
                     if ($row['mdp'] == $_SESSION["password"]) {
 
-                        $stmt = $con->prepare("SELECT email, mdp, admin, pseudo FROM utilisateur WHERE email = ? AND mdp = ?");
+                        $stmt = $con->prepare("SELECT id_utilisateur,email, mdp, admin, pseudo FROM utilisateur WHERE email = ? AND mdp = ?");
                         $stmt->bindParam(1, $_SESSION["email"]);
                         $stmt->bindParam(2, $_SESSION["password"]);
                         $stmt->execute();
@@ -40,6 +40,8 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
                         $_SESSION["username"] = $user["pseudo"];
 
                         $_SESSION["isConnected"] = true;
+
+                        $_SESSION["id"] = $user["id_utilisateur"];
 
                         header('Location: home.php');
                         exit();
