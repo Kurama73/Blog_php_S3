@@ -2,7 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-input {
-    @apply border-black border-2 rounded-sm mb-5 p-1;
+@layer base {
+    /* Body */
+    body {
+        @apply bg-gray-200;
+    }
+
+    /* Connection form */
+    .form-container {
+        @apply m-auto my-12 px-10 py-8 max-w-sm text-center rounded-md bg-primary-500;
+    }
+
+    .form-container > h1 {
+        @apply font-medium mb-4;
+    }
+
+    .form-container > form {
+        @apply flex flex-col;
+    }
+
+    .form-container > form input {
+        @apply border-black border-2 rounded-sm mb-5 px-2 py-1;
+    }
+
+    .form-button {
+        @apply bg-primary-500 hover:drop-shadow-none font-medium;
+    }
+
+    /* Home */
+    .home-header {
+        display: grid;
+        grid-template-columns: 20% 1fr 20%;
+    }
+
+    .home-header input {
+        @apply border-black border-0 rounded-3xl px-2 py-2;
+    }
 }
 

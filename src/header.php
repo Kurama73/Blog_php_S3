@@ -12,11 +12,11 @@ require_once('pdo.php');
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap"
           rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="output.css" rel="stylesheet">
 </head>
 <body class="font-ubuntu">
 
-<header class="py-7 px-5 shadow-md">
+<header class="py-7 px-5 shadow-md bg-gray-400">
     <h1 class="text-2xl font-bold"><a href="home.php">Blog.kpf</a></h1>
 </header>
 
