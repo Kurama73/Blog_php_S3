@@ -2,6 +2,12 @@
 // Adding header
 require_once('header.php');
 
+if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
+
+    header("Location: index.php");
+    exit;
+}
+
 
 // Filtrage par pseudo
 $filter = isset($_GET['filter']) ? $_GET['filter'] : '';
@@ -28,6 +34,8 @@ if ($filter) {
 
 $stmt->execute();
 $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -54,6 +62,23 @@ $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="create-article">
             <a href="create_article.php">Créer un article</a>
         </div>
+
+        <?php
+
+            if ($_SESSION["isAdmin"] == true) {
+                echo '
+                    <div class="CRUD">
+                        <form action="crud.php" method="post">
+                            <input type="submit" value="Acceder au CRUD">
+                        </form>
+                    </div>
+                ';
+                
+            }  
+
+        ?>
+
+        
     </div>
 
     <!-- Articles -->

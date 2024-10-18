@@ -36,7 +36,6 @@
 
 
         <?php
-            $_SESSION["isConnected"] = true;
 
             if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
                 
