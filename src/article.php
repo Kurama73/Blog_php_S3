@@ -24,6 +24,16 @@ $stmtComments->bindValue(':id', $id, PDO::PARAM_INT);
 $stmtComments->execute();
 $comments = $stmtComments->fetchAll(PDO::FETCH_ASSOC);
 
+
+if (isset($_POST["sup_com"]) && isset($_POST["id_commentaire"])) {
+    $stmtComments = $con->prepare("DELETE FROM commentaire WHERE id_commentaire = ?");
+    $stmtComments->bindParam(1,$_POST["id_commentaire"]);
+    $stmtComments->execute();
+
+    header("Location: article.php?id=" . $id);
+    exit;
+}
+
 // Insertion commentaire
 if (!empty($_POST["comment"]) && !empty($_POST["comment"])) 
     $stmt = $con->prepare("INSERT INTO commentaire (contenu, id_article, id_utilisateur) VALUES (?,?,?)");
@@ -73,8 +83,22 @@ if (!empty($_POST["comment"]) && !empty($_POST["comment"]))
         <h3>Commentaire(s)</h3>
         <?php foreach ($comments as $comment): ?>
             <div class="comment">
+
                 <?php echo htmlspecialchars($comment['pseudo']); ?> / <?php echo htmlspecialchars($comment['date']); ?>
                 <p><?php echo nl2br(htmlspecialchars($comment['contenu'])); ?></p>
+
+                <?php
+                    if(strtolower($comment['pseudo']) == $_SESSION["username"]): ?>
+                        
+                        <form method="post">
+
+                            <input type="hidden" name="id_commentaire" value="<?php echo $comment['id_commentaire']; ?>">
+                            <input type="submit" name="sup_com" value=&#x1F5D1 />
+
+                        </form>
+                    
+                <?php endif; ?>
+
             </div>
         <?php endforeach; ?>
     </div>

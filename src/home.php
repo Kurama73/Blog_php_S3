@@ -1,7 +1,7 @@
 <?php
 // Adding header
 require_once('header.php');
-require "redirection.php";
+
 // Filtrage par pseudo
 $filter = isset($_GET['filter']) ? $_GET['filter'] : '';
 if ($filter) {
@@ -28,6 +28,16 @@ if ($filter) {
 $stmt->execute();
 $nb_row = $stmt->rowCount();
 $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+if (isset($_POST["sup_art"]) && isset($_POST["id_art"])) {
+    $stmtComments = $con->prepare("DELETE FROM article WHERE id_article = ?");
+    $stmtComments->bindParam(1,$_POST["id_art"]);
+    $stmtComments->execute();
+
+    header("Location: home.php");
+    exit;
+}
 
 
 ?>
@@ -85,11 +95,29 @@ $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
             ?>
 
             <a href="article.php?id=<?php echo $row['id_article']; ?>&filter=<?php echo urlencode($filter); ?>">
+
                 <div class="w-full bg-gray-300 px-4 py-5 shadow-xl border-primary-400 border-b-2 hover:bg-gray-250 <?php echo $border_radius; ?>">
-                    <!--<h2><?php echo htmlspecialchars($row['pseudo']); ?> / <?php echo htmlspecialchars($row['date']); ?> / <?php echo htmlspecialchars($row['categorie']); ?></h2> -->
+
+                    <?php if (strtolower($row['id_utilisateur']) == $_SESSION["id"]): ?>
+                    <form method="post">
+
+                        <input type="hidden" name="id_art" value="<?php echo $row['id_article']; ?>">
+                        <input type="submit" name="sup_art" value=&#x1F5D1 />
+
+                    </form>
+
+                    <?php endif; ?>
+
+                    <!--<h2>
+                    <?php echo htmlspecialchars($row['pseudo']); ?> / <?php echo htmlspecialchars($row['date']); ?> / <?php echo htmlspecialchars($row['categorie']); ?>
+                    </h2> -->
+                    
                     <h1 class="font-bold"><?php echo htmlspecialchars($row['titre']); ?></h1>
+
                     <p><?php echo nl2br(htmlspecialchars($row['description'])); ?></p>
+
                     <h2 class="text-md">&#128172;<?php echo htmlspecialchars($row['comment_count']); ?></h2>
+
                 </div>
             </a>
         <?php endforeach; ?>
