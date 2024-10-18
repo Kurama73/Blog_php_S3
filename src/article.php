@@ -19,11 +19,13 @@ $stmt->execute();
 $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Récupération des commentaires
-$stmtComments = $con->prepare("SELECT * FROM commentaire WHERE id_commentaire = :id ORDER BY date DESC");
+$stmtComments = $con->prepare("SELECT * FROM commentaire c 
+    JOIN utilisateur u ON c.id_utilisateur = u.id_utilisateur
+    WHERE c.id_article = :id
+    ORDER BY c.date DESC");
 $stmtComments->bindValue(':id', $id, PDO::PARAM_INT);
 $stmtComments->execute();
 $comments = $stmtComments->fetchAll(PDO::FETCH_ASSOC);
-
 
 if (isset($_POST["sup_com"]) && isset($_POST["id_commentaire"])) {
     $stmtComments = $con->prepare("DELETE FROM commentaire WHERE id_commentaire = ?");
@@ -35,13 +37,16 @@ if (isset($_POST["sup_com"]) && isset($_POST["id_commentaire"])) {
 }
 
 // Insertion commentaire
-if (!empty($_POST["comment"]) && !empty($_POST["comment"])) 
-    $stmt = $con->prepare("INSERT INTO commentaire (contenu, id_article, id_utilisateur) VALUES (?,?,?)");
+if (!empty($_POST["comment"])) {
+    $stmt = $con->prepare("INSERT INTO commentaire (contenu, id_article, id_utilisateur) VALUES (?, ?, ?)");
     $stmt->bindParam(1, $_POST["comment"]);
     $stmt->bindParam(2, $id);
     $stmt->bindParam(3, $_SESSION["id"]);
-    $stmtComments->execute();
-?>
+    $stmt->execute();
+
+    header("Location: Article.php?id=" . $id);
+    exit;
+}
 
 
 <!DOCTYPE html>
