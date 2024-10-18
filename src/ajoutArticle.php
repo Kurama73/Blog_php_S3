@@ -22,14 +22,29 @@
             <label>Article (280char max)</label> <br>
             <input type="text" name="article" maxlength="280" required> <br>
 
-            <label>Catégorie (séparé par un espace)</label> <br>
-            <input type="text" name="categorie" maxlength="25" required> <br>
+            <label for="categorie">Choisissez une ou plusieurs catégorie</label><br>
+            <select multiple id="categorie" name="categorie[]" required>
+
+                <?php
+                    
+                    require "pdo.php";
+
+                    $stmt = $con->prepare("SELECT id_categorie, nom FROM categorie");
+                    $stmt->execute();
+                    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    foreach ($categories as $categorie) {
+                        echo "<option value='".$categorie["id_categorie"]."'>".$categorie["nom"]."</option>";
+                    }
+                ?>
+
+            </select> <br>
 
             <input type="submit" value="Poster">
 
         </form>
 
-        <form action="ajoutArticle.php" method="post">
+        <form action="home.php" method="post">
 
             <input type="submit" value="Annuler">
         </form>
@@ -38,18 +53,23 @@
         <?php
             $_SESSION["isConnected"] = true;
 
+            $_SESSION["username"] = "UserSix";
             if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
-                
-                echo "Vous devez être connecté pour accéder à cette page.";
 
-                header("Location: pdo.php");
+                header("Location: index.php");
+                exit;
+            }
+
+            if (!isset($_SESSION["username"]) || empty($_SESSION["username"] )) {
+                header("Location: choose-username.php");
                 exit;
             }
 
             session_start();
+
             require "pdo.php";
 
-            $_SESSION["username"] = "UserSix";
+            
 
             if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]) && !empty($_POST["article"]) && isset($_POST["categorie"]) && !empty($_POST["categorie"])) {
                 if (strlen(isset($_POST["titre"])) > 100) {
@@ -58,65 +78,30 @@
                 } else if (strlen(isset($_POST["article"])) > 280) {
                     echo "L'article doit faire moins de 280 char";
                 }
-                
 
-                
 
-                $tabCategorie = explode(" ",$_POST["categorie"]);
+                //recuperation id_utilisateur
+                $stmt = $con->prepare("SELECT id_utilisateur FROM utilisateur WHERE pseudo = ?");
+                $stmt->bindParam(1, $_SESSION["username"]);
+                $stmt->execute();
+                $idUtilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                $insertArticle = false;
+                $stmt = $con->prepare("INSERT INTO article (titre,description,id_utilisateur) VALUES (?,?,?)");
+                $stmt->bindParam(1, $_POST["titre"]);
+                $stmt->bindParam(2, $_POST["article"]);
+                $stmt->bindParam(3, $idUtilisateur["id_utilisateur"]);
+                $stmt->execute();
 
-                $lastArticleId = 0;
+                $lastArticleId = $con->lastInsertId();
+            
+                //boucler pr les catégories
+                foreach ($_POST["categorie"] as $idCategorie) {
 
-                foreach ($tabCategorie as $categorie) {
-                    $existe = false;
-                    $stmt = $dbh->prepare("SELECT nom FROM categorie WHERE nom = ?");
-                    $stmt->bindParam(1, $categorie);
-                    $stmt->execute();
-                    
-                    foreach ($stmt as $row) {
-                        if ($row["nom"] == $categorie) {
-                            $existe = true;
-                        }
-                    }
-
-                    if (!$existe) {
-                        //création
-                        $stmt = $dbh->prepare("INSERT INTO categorie (nom) VALUES (?)");
-                        $stmt->bindParam(1, $categorie);
-                        $stmt->execute();
-
-                    } 
-
-                    $stmt = $dbh->prepare("SELECT id_categorie FROM categorie WHERE nom = ?");
-                    $stmt->bindParam(1, $categorie);
-                    $stmt->execute();
-                    $idCategorie = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                    //insertion
-
-                    if (!$insertArticle) {
-
-                        //recuperation id_utilisateur
-                        $stmt = $dbh->prepare("SELECT id_utilisateur FROM utilisateur WHERE pseudo = ?");
-                        $stmt->bindParam(1, $_SESSION["username"]);
-                        $stmt->execute();
-                        $idUtilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                        $stmt = $dbh->prepare("INSERT INTO article (titre,description,id_utilisateur) VALUES (?,?,?)");
-                        $stmt->bindParam(1, $_POST["titre"]);
-                        $stmt->bindParam(2, $_POST["article"]);
-                        $stmt->bindParam(3, $idUtilisateur["id_utilisateur"]);
-                        $stmt->execute();
-
-                        $lastArticleId = $dbh->lastInsertId();
-                        $insertArticle = true;
-                    }
-
-                    $stmt = $dbh->prepare("INSERT INTO reference (id_article, id_categorie) VALUES (?,?)");
+                    $stmt = $con->prepare("INSERT INTO reference (id_article, id_categorie) VALUES (?,?)");
                     $stmt->bindParam(1, $lastArticleId);
-                    $stmt->bindParam(2, $idCategorie["id_categorie"]);
+                    $stmt->bindParam(2, $idCategorie);
                     $stmt->execute();
+
                 }
 
                 header("Location: ajoutArticle.php");

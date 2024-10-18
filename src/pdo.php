@@ -9,3 +9,4 @@ try {
 } catch (Exception $e) {
     die('General error: ' . $e->getMessage());
 }
+?>
