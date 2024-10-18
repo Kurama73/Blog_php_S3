@@ -51,7 +51,6 @@
 
 
         <?php
-            $_SESSION["isConnected"] = true;
 
             $_SESSION["username"] = "UserSix";
             if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
