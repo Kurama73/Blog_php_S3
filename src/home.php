@@ -50,39 +50,34 @@ if (isset($_POST["sup_art"]) && isset($_POST["id_art"])) {
     <title>Blog</title>
 </head>
 <body>
-<main class="max-w-2xl py-10 m-auto">
-    <div class="home-header items-center mb-9">
-        <form method="get" class="col-start-2 text-center">
-            <input type="text" name="filter" placeholder="Filter by username"
-                   value="<?php echo htmlspecialchars($filter); ?>" class="w-4/6">
-            <input type="submit" name="bt-filter" value="Filter">
+
+<div class="home-header flex justify-around items-center my-9">
+
+    <?php if ($_SESSION["isAdmin"] == true): ?>
+        <form action="../admin/categorie.php" method="post">
+            <input type="submit" value="Access to CRUD" class="rounded-3xl">
         </form>
+    <?php endif; ?>
 
-        <!-- Bouton créer un article -->
-        <div class="create-article">
-            <a href="ajoutArticle.php">Créer un article</a>
-        </div>
+    <form method="get" class="flex w-5/12">
+        <p class="flex items-center bg-gray-50 pl-3 rounded-l-3xl">&#128269; </p>
+        <input type="text" name="filter" placeholder="Filter by username"
+               value="<?php echo htmlspecialchars($filter); ?>" class="w-full mr-1.5">
+        <input type="submit" name="bt-filter" value="Filter" class="w-1/5 rounded-r-3xl">
+    </form>
 
-        <?php
+    <!-- Bouton créer un article -->
+    <form action="ajoutArticle.php">
+        <input type="submit" name="bt-create-article" value="Create an article" class="rounded-3xl">
+    </form>
 
-            if ($_SESSION["isAdmin"] == true) {
-                echo '
-                    <div class="CRUD">
-                        <form action="crud.php" method="post">
-                            <input type="submit" value="Acceder au CRUD">
-                        </form>
-                    </div>
-                ';
-                
-            }  
+</div>
 
-        ?>
-
-        
-    </div>
+<main class="max-w-2xl m-auto">
 
     <!-- Article -->
     <div class="flex flex-col w-full m-auto">
+
         <?php foreach ($article as $row): ?>
             <?php
             if ($row == $article[0]) {
@@ -121,6 +116,7 @@ if (isset($_POST["sup_art"]) && isset($_POST["id_art"])) {
                 </div>
             </a>
         <?php endforeach; ?>
+
     </div>
 </main>
 </body>

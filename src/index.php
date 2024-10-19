@@ -33,7 +33,7 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
                         $stmt->execute();
                         $user = $stmt->fetch(PDO::FETCH_ASSOC);
                         
-                        if ($user["admin"] == 1 && $user["pseudo"] == "Admin") {
+                        if ($user["admin"] == 1) {
                             $_SESSION["isAdmin"] = true;
                         }
 
