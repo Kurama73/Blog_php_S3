@@ -1,5 +1,5 @@
 <?php
-require_once("pdo.php");
+require_once("../src/header.php");
 
 // Ajouter une nouvelle catégorie
 if (isset($_POST['add'])) {
