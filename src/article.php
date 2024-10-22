@@ -27,7 +27,7 @@ $stmtComments->bindValue(':id', $id, PDO::PARAM_INT);
 $stmtComments->execute();
 $comments = $stmtComments->fetchAll(PDO::FETCH_ASSOC);
 
-if (isset($_POST["sup_com"]) && isset($_POST["id_commentaire"])) {
+if (isset($_POST["delete-article"]) && isset($_POST["id_commentaire"])) {
     $stmtComments = $con->prepare("DELETE FROM commentaire WHERE id_commentaire = ?");
     $stmtComments->bindParam(1,$_POST["id_commentaire"]);
     $stmtComments->execute();
@@ -94,12 +94,12 @@ if (!empty($_POST["comment"])) {
                 <p><?php echo nl2br(htmlspecialchars($comment['contenu'])); ?></p>
 
                 <?php
-                    if(strtolower($comment['pseudo']) == $_SESSION["username"]): ?>
+                    if(strtolower($comment['pseudo']) == strtolower($_SESSION["username"])): ?>
                         
                         <form method="post">
 
                             <input type="hidden" name="id_commentaire" value="<?php echo $comment['id_commentaire']; ?>">
-                            <input type="submit" name="sup_com" value=&#x1F5D1 />
+                            <button type="submit" name="delete-article"><img src="./images/icons/gi_delete.svg" alt="delete-icon"></button>
 
                         </form>
                     
