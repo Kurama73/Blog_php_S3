@@ -27,19 +27,20 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
                 if ($row['email'] == $_SESSION["email"]) {
                     if ($row['mdp'] == $_SESSION["password"]) {
 
-                        $stmt = $con->prepare("SELECT email, mdp, admin, pseudo FROM utilisateur WHERE email = ? AND mdp = ?");
+                        $stmt = $con->prepare("SELECT id_utilisateur,email, mdp, admin, pseudo FROM utilisateur WHERE email = ? AND mdp = ?");
                         $stmt->bindParam(1, $_SESSION["email"]);
                         $stmt->bindParam(2, $_SESSION["password"]);
                         $stmt->execute();
                         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-                        
+
+                        // Initialization of session variables
+                        $_SESSION["id"] = $user["id_utilisateur"];
+                        $_SESSION["username"] = $user["pseudo"];
+                        $_SESSION["isConnected"] = true;
+
                         if ($user["admin"] == 1) {
                             $_SESSION["isAdmin"] = true;
                         }
- 
-                        $_SESSION["username"] = $user["pseudo"];
-
-                        $_SESSION["isConnected"] = true;
 
                         header('Location: home.php');
                         exit();
@@ -64,9 +65,6 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
     } else {
         echo 'An email needs an "@"';
     }
-    header("Location: index.php");
-    exit;
-            
 }
 ?>
 
@@ -88,7 +86,7 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
         <input type="submit" name="sb-login" value="Log in" class="form-button">
     </form>
 
-    <p><?php echo $ex_password ?></p>
+    <p class="text-xs text-red-600"><?php echo $ex_password ?></p>
 
 </div>
 
