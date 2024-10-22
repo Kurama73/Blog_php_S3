@@ -6,18 +6,18 @@ require_once('header.php');
 $filter = isset($_GET['filter']) ? $_GET['filter'] : '';
 if ($filter) {
     $stmt = $con->prepare("
-            SELECT article.*, COUNT(commentaire.id_commentaire) AS comment_count 
+            SELECT article.*, utilisateur.pseudo, COUNT(commentaire.id_commentaire) AS comment_count 
             FROM article 
             LEFT JOIN commentaire ON article.id_article = commentaire.id_article
             LEFT JOIN utilisateur ON article.id_utilisateur = utilisateur.id_utilisateur
-            WHERE article.pseudo LIKE :filter 
+            WHERE utilisateur.pseudo LIKE :filter 
             GROUP BY article.id_article 
-            ORDER BY date DESC
+            ORDER BY article.date DESC
         ");
     $stmt->bindValue(':filter', '%' . $filter . '%');
 } else {
     $stmt = $con->prepare("
-            SELECT *, COUNT(commentaire.id_commentaire) AS comment_count 
+            SELECT article.*, utilisateur.pseudo, COUNT(commentaire.id_commentaire) AS comment_count 
             FROM article 
             LEFT JOIN commentaire ON article.id_article = commentaire.id_article
             LEFT JOIN utilisateur ON article.id_utilisateur = utilisateur.id_utilisateur
