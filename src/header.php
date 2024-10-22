@@ -29,14 +29,14 @@ if (isset($_POST['log-out'])) {
 </head>
 <body class="font-ubuntu">
 
-<header class="px-5 py-7 shadow-md bg-gray-400">
+<header class="flex justify-between px-5 py-7 shadow-md bg-gray-400">
     <h1 class="text-2xl font-bold"><a href="home.php">Blog.kpf</a></h1>
 
 
     <form method="post">
 
         <input type="hidden" name="log-out"/>
-        <input type="submit" value="Deconnexion">
+        <input type="image" src="images/icons/gi_logout.svg" alt="logout">
 
     </form>
 </header>
