@@ -37,7 +37,6 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
                         $_SESSION["id"] = $user["id_utilisateur"];
                         $_SESSION["username"] = $user["pseudo"];
                         $_SESSION["isConnected"] = true;
-                        $_SESSION["id"] = $user["id_utilisateur"];
 
                         if ($user["admin"] == 1) {
                             $_SESSION["isAdmin"] = true;
