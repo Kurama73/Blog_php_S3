@@ -77,6 +77,8 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]
             foreach ($categories as $categorie) {
                 echo "<option value='" . $categorie["id_categorie"] . "'>" . $categorie["nom"] . "</option>";
             }
+
+            
             ?>
 
         </select> <br>
