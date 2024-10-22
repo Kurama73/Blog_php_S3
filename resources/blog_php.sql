@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 18 oct. 2024 à 08:19
+-- Généré le : mar. 22 oct. 2024 à 14:04
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -32,21 +32,19 @@ CREATE TABLE IF NOT EXISTS `article` (
   `id_article` int NOT NULL AUTO_INCREMENT,
   `titre` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_article` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `id_utilisateur` int DEFAULT NULL,
   PRIMARY KEY (`id_article`),
   KEY `id_utilisateur` (`id_utilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `article`
 --
 
-INSERT INTO `article` (`id_article`, `titre`, `description`, `date`, `id_utilisateur`) VALUES
-(1, 'Les Bienfaits de la Méditation', 'La méditation est une pratique millénaire qui apporte de nombreux bienfaits. Elle aide à réduire le stress, améliore la concentration et favorise la paix intérieure. En prenant quelques minutes par jour pour méditer, vous pouvez transformer votre esprit et améliorer votre qualité de vie. Essayez-la !\r\n\r\n\r\nLa méditation est une pratique millénaire qui apporte de nombreux bienfaits. Elle aide à réduire le stress, améliore la concentration et favorise la paix intérieure. En prenant quelques minutes par jour pour méditer, vous pouvez transformer votre esprit et améliorer votre qualité de vie. Essayez-la !\r\n\r\n\r\n\r\n\r\nLa méditation est une pratique millénaire qui apporte de nombreux bienfaits. Elle aide à réduire le stress, améliore la concentration et favorise la paix intérieure. En prenant quelques minutes par jour pour méditer, vous pouvez transformer votre esprit et améliorer votre qualité de vie. Essayez-la !\r\n\r\n', '2024-10-01 08:00:00', 1),
+INSERT INTO `article` (`id_article`, `titre`, `description`, `date_article`, `id_utilisateur`) VALUES
+(25, 'You follow me?', '\"pas vrai la jeunesse?\"', '2024-10-22 12:31:10', 7),
 (2, 'Advanced MySQL Tips', 'Learn advanced features of MySQL for better performance.', '2024-10-02 10:00:00', 2),
-(3, 'Web Design Trends 2024', 'Discover the latest web design trends for 2024.', '2024-10-05 12:30:00', 3),
-(4, 'Introduction to APIs', 'How to build and use APIs effectively.', '2024-10-07 07:15:00', 1),
 (5, 'AI and the Future of Work', 'Exploring how AI will transform industries.', '2024-10-09 14:45:00', 4);
 
 -- --------------------------------------------------------
@@ -127,7 +125,15 @@ INSERT INTO `reference` (`id_article`, `id_categorie`) VALUES
 (2, 2),
 (3, 3),
 (4, 1),
-(5, 4);
+(5, 4),
+(18, 1),
+(19, 4),
+(20, 2),
+(21, 1),
+(22, 2),
+(23, 2),
+(24, 1),
+(25, 1);
 
 -- --------------------------------------------------------
 
@@ -144,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `admin` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id_utilisateur`),
   UNIQUE KEY `email` (`email`(191))
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
@@ -157,7 +163,9 @@ INSERT INTO `utilisateur` (`id_utilisateur`, `email`, `mdp`, `pseudo`, `admin`) 
 (4, 'user8@example.com', 'password8', 'UserEight', 0),
 (5, 'user9@example.com', 'password9', 'UserNine', 0),
 (6, 'userjaloux@example.com', 'maths', 'm.jaloux', 0),
-(7, 'userpikachu@example.com', 'pika', 'pikachu', 0);
+(7, 'userpikachu@example.com', 'pika', 'Admin', 1),
+(8, 'usercaptainfalcon@example.com', 'falcon', 'captain falcon', 0),
+(9, 'papa@example.com', 'papa', 'papa', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

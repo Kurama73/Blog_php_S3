@@ -70,7 +70,7 @@ if (!empty($_POST["comment"])) {
 
     <!-- Article -->
     <div class="article-block">
-        <h2 class="text-xl"><?php echo htmlspecialchars($article[0]['pseudo']); ?> / <?php echo htmlspecialchars($article[0]['date']);?></h2>
+        <h2 class="text-xl"><?php echo htmlspecialchars($article[0]['pseudo']); ?> / <?php echo htmlspecialchars($article[0]['date_article']);?></h2>
         <h1 class="text-2xl"><?php echo htmlspecialchars($article[0]['titre']); ?></h1>
         <p><?php echo nl2br(htmlspecialchars($article[0]['description'])); ?></p>
     </div>

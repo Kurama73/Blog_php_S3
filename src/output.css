@@ -852,6 +852,10 @@ body {
   font-weight: 700;
 }
 
+.font-medium {
+  font-weight: 500;
+}
+
 .text-gray-500 {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
@@ -860,18 +864,6 @@ body {
 .text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
-}
-
-.underline {
-  text-decoration-line: underline;
-}
-
-.decoration-gray-200 {
-  text-decoration-color: #e5e7eb;
-}
-
-.underline-offset-8 {
-  text-underline-offset: 8px;
 }
 
 .shadow-md {

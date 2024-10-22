@@ -2,15 +2,20 @@
 // Adding header
 require_once('header.php');
 
+// Exceptions
+$ex_results = null;
+
 // Filtrage par pseudo
 $filter = isset($_GET['filter']) ? $_GET['filter'] : '';
 if ($filter) {
     $stmt = $con->prepare("
-            SELECT article.*, COUNT(commentaire.id_commentaire) AS comment_count 
+            SELECT *, COUNT(commentaire.id_commentaire) AS comment_count 
             FROM article 
             LEFT JOIN commentaire ON article.id_article = commentaire.id_article
             LEFT JOIN utilisateur ON article.id_utilisateur = utilisateur.id_utilisateur
-            WHERE article.pseudo LIKE :filter 
+            LEFT JOIN reference ON article.id_article = reference.id_article
+            LEFT JOIN categorie ON reference.id_categorie = categorie.id_categorie
+            WHERE utilisateur.pseudo LIKE :filter 
             GROUP BY article.id_article 
             ORDER BY date DESC
         ");
@@ -21,8 +26,10 @@ if ($filter) {
             FROM article 
             LEFT JOIN commentaire ON article.id_article = commentaire.id_article
             LEFT JOIN utilisateur ON article.id_utilisateur = utilisateur.id_utilisateur
+            LEFT JOIN reference ON article.id_article = reference.id_article
+            LEFT JOIN categorie ON reference.id_categorie = categorie.id_categorie
             GROUP BY article.id_article 
-            ORDER BY article.date DESC
+            ORDER BY date_article DESC
         ");
 }
 
@@ -30,10 +37,14 @@ $stmt->execute();
 $nb_row = $stmt->rowCount();
 $article = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+if (empty($article)) {
+    $ex_results = "No results found!";
+}
+
 
 if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
     $stmtComments = $con->prepare("DELETE FROM article WHERE id_article = ?");
-    $stmtComments->bindParam(1,$_POST["id_art"]);
+    $stmtComments->bindParam(1,$_POST["id-article"]);
     $stmtComments->execute();
 
     header("Location: home.php");
@@ -105,18 +116,14 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
                     <form method="post" action="home.php" class="float-right">
 
                         <input type="hidden" name="id-article" value="<?php echo $row['id_article']; ?>">
-                        <input type="image" src="./images/icons/gi_delete.svg" alt="delete-article-icon">
+                        <button type="submit" name="delete-article"><img src="./images/icons/gi_delete.svg" alt="delete-icon"></button>
 
                     </form>
                     <?php endif; ?>
 
                     <div class="text-xs mb-2 ">
-                        <p class="font-medium"><?php echo $row['pseudo'] ?> · <?php echo $row['date'] ?></p>
+                        <p class="font-medium"><?php echo $row['pseudo'] ?> / <?php echo $row['date_article'] ?> / <?php echo $row['nom'] ?></p>
                     </div>
-
-                    <!--<h2>
-                    <?php echo htmlspecialchars($row['pseudo']); ?> / <?php echo htmlspecialchars($row['date']); ?> / <?php echo htmlspecialchars($row['categorie']); ?>
-                    </h2> -->
 
                     <h1 class="article-title font-bold mb-1"><?php echo htmlspecialchars($row['titre']); ?></h1>
                     <p class="mb-4"><?php echo nl2br(htmlspecialchars($row['description'])); ?></p>
@@ -127,6 +134,8 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
         <?php endforeach; ?>
 
     </div>
+
+    <p class="text-xl"><?php echo $ex_results; ?></p>
 
     <?php require_once('footer.php'); ?>
 </main>
