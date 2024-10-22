@@ -30,18 +30,8 @@
     }
 
     /* Home */
-    .home-header form * {
-        @apply bg-gray-50 border-none py-2;
-    }
-
-    .home-header-filter {
-        @apply bg-gray-50 rounded-r-2xl rounded-l-md ml-1;
-    }
-
-    .article:hover {
-        .article-title {
-            @apply text-primary-700;
-        }
+    .home-header form input {
+        @apply bg-gray-50 border-none px-3 py-2;
     }
 }
 

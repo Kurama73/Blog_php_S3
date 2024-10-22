@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once('pdo.php');
-
 ?>
 
 <!doctype html>
@@ -17,7 +16,7 @@ require_once('pdo.php');
 </head>
 <body class="font-ubuntu">
 
-<header class="px-5 py-7 shadow-md bg-gray-400">
+<header class="py-7 px-5 shadow-md bg-gray-400">
     <h1 class="text-2xl font-bold"><a href="home.php">Blog.kpf</a></h1>
 </header>
 

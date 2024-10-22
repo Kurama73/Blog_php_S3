@@ -1,22 +1,5 @@
 <?php
-
-require "../src/header.php";
-
-if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
-
-    header("Location: ../src/index.php");
-    exit;
-}
-
-if (!isset($_SESSION["username"]) || empty($_SESSION["username"] )) {
-    header("Location: ../src/choose-username.php");
-    exit;
-}
-
-if (!isset($_SESSION["isAdmin"]) || $_SESSION["isAdmin"] == false) {
-    header("Location: ../src/home.php");
-    exit;
-}
+require_once("../src/header.php");
 
 // Ajouter une nouvelle catégorie
 if (isset($_POST['add'])) {
