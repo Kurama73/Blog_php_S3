@@ -41,7 +41,7 @@
 
         }
 
-        header("Location: ajoutArticle.php");
+        header("Location: add-article.php");
         exit;
     
     }
@@ -61,7 +61,7 @@
 <body>
     <main>
 
-        <form action="ajoutArticle.php" method="post">
+        <form action="add-article.php" method="post">
             
             <label>Titre (100 char max)</label> <br>
             <input type="text" name="titre" maxlength="100" required> <br>
