@@ -82,13 +82,6 @@
 
                 <label for="categorie" class="block text-gray-700 font-bold">Choose 1 or more category</label>
 
-            foreach ($categories as $categorie) {
-                echo "<option value='" . $categorie["id_categorie"] . "'>" . $categorie["nom"] . "</option>";
-            }
-
-            
-            ?>
-
                 <select multiple id="categorie" name="categorie[]" required
                         class="mt-2 p-3 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
 
