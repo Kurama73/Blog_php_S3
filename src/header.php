@@ -8,13 +8,15 @@ if (!(basename($_SERVER['PHP_SELF']) == "index.php")) {
 
 
 if (isset($_POST['log-out'])) {
-    if (!$_SESSION["isAdmin"]) {
-        $_SESSION["isConnected"] = false;
-        header("Location: index.php");
-        exit;
-    } else {
+
+    if ($_SESSION["isAdmin"]) {
         $_SESSION["isConnected"] = false;
         header("Location: ../src/index.php");
+        exit;
+    } else {
+
+        $_SESSION["isConnected"] = false;
+        header("Location: index.php");
         exit;
     }
 }
@@ -40,20 +42,28 @@ if (isset($_POST['log-out'])) {
 <body class="font-ubuntu">
 
 <header class="flex justify-between px-5 py-7 shadow-md bg-gray-400">
-    <h1 class="text-2xl font-bold"><a href="home.php">Blog.kpf</a></h1>
 
-    <?php if (!(basename($_SERVER['PHP_SELF']) == "categorie.php")): ?>
-    <h1 class="text-2xl font-bold"><a href="home.php">Blog.kpf</a></h1>
+    <?php if (!$_SESSION["isAdmin"]): ?>
+        <h1 class="text-2xl font-bold"><a href="home.php">Blog.kpf</a></h1>
     <?php endif; ?>
 
-    <?php if ((basename($_SERVER['PHP_SELF']) == "categorie.php")): ?>
-    <h1 class="text-2xl font-bold"><a href="../src/home.php">Blog.kpf</a></h1>
+    <?php if ($_SESSION["isAdmin"]): ?>
+        <h1 class="text-2xl font-bold"><a href="../src/home.php">Blog.kpf</a></h1>
     <?php endif; ?>
 
     <form method="post">
 
         <input type="hidden" name="log-out"/>
-        <input type="image" src="images/icons/gi_logout.svg" alt="logout">
+
+        <?php if (!(basename($_SERVER['PHP_SELF']) == "index.php")): ?>
+            <?php if (!$_SESSION["isAdmin"]): ?>
+            <input type="image" src="images/icons/gi_logout.svg" alt="logout">
+            <?php endif; ?>
+
+            <?php if ($_SESSION["isAdmin"]): ?>
+            <input type="image" src="../src/images/icons/gi_logout.svg" alt="logout">
+            <?php endif; ?>
+        <?php endif; ?>
 
     </form>
 </header>

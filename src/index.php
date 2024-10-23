@@ -8,13 +8,14 @@ session_unset();
 // Initialization of exception variables
 $ex_password = null;
 $_SESSION["isConnected"] = false;
+$_SESSION["isAdmin"] = false;
 
 if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
     if (str_contains($_POST["in-email"], "@")) {
         // Initializing session variables
         $_SESSION["email"] = $_POST["in-email"];
         $_SESSION["password"] = $_POST["in-password"];
-        $_SESSION["isAdmin"] = false;
+        //$_SESSION["isAdmin"] = false;
 
         // Database recovery
         try {
