@@ -2,6 +2,10 @@
 if ($_SESSION["isAdmin"]) {
     if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
 
+if (!(basename($_SERVER['PHP_SELF']) == "categorie.php")) {
+
+    if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
+
         header("Location: index.php");
         exit;
     }
@@ -10,7 +14,9 @@ if ($_SESSION["isAdmin"]) {
         header("Location: choose-username.php");
         exit;
     }
+
 } else {
+
     if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
 
         header("Location: ../src/index.php");
@@ -21,6 +27,8 @@ if ($_SESSION["isAdmin"]) {
         header("Location: ../src/choose-username.php");
         exit;
     }
+
 }
+
 
 ?>
