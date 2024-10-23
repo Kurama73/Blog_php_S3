@@ -1,4 +1,6 @@
 <?php
+if ($_SESSION["isAdmin"]) {
+    if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
 
 if (!(basename($_SERVER['PHP_SELF']) == "categorie.php")) {
 

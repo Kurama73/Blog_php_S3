@@ -32,8 +32,12 @@ if (isset($_POST['log-out'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap"
           rel="stylesheet">
+
+    <?php if (!(basename($_SERVER['PHP_SELF']) == "categorie.php")): ?>
     <link href="output.css" rel="stylesheet">
+    <?php endif; ?>
     <link href="../src/output.css" rel="stylesheet">
+
 </head>
 <body class="font-ubuntu">
 
