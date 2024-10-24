@@ -85,8 +85,8 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
         </form>
 
         <!-- Button create an article -->
-        <form action="add-article.php" class=" bg-blue-600 hover:bg-blue-700"> 
-
+        <form action="add-article.php"> 
+            
                 <input type="submit" name="bt-create-article" value="Create an article" class="hidden sm:flex rounded-2xl px-3.5">
                 <input type="image" src="./images/icons/gi_post.svg" alt="create-article-icon" class="flex sm:hidden rounded-2xl px-2">
 

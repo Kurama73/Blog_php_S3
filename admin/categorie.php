@@ -9,6 +9,7 @@ if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
 }
 
 if (!isset($_SESSION["username"]) || empty($_SESSION["username"] )) {
+    
     header("Location: ../src/choose-username.php");
     exit;
 }
