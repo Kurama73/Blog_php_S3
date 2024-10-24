@@ -8,7 +8,8 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $filter = isset($_GET['filter']) ? $_GET['filter'] : '';
 
 $stmt = $con->prepare("
-        SELECT * FROM article
+        SELECT *, DATE_FORMAT(article.date_article, '%b %d, %Y') AS date_formatee
+        FROM article
         LEFT JOIN utilisateur ON article.id_utilisateur = utilisateur.id_utilisateur
         LEFT JOIN reference ON article.id_article = reference.id_article
         LEFT JOIN categorie ON reference.id_categorie = categorie.id_categorie
@@ -59,7 +60,7 @@ if (!empty($_POST["comment"])) {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main class="container">
+<main class="max-w-2xl m-auto px-4">
 
     <!-- Bouton de retour -->
     <a href="home.php" class="return-button">
@@ -69,8 +70,10 @@ if (!empty($_POST["comment"])) {
     </a>
 
     <!-- Article -->
-    <div class="article-block">
-        <h2 class="text-xl"><?php echo htmlspecialchars($article[0]['pseudo']); ?> / <?php echo htmlspecialchars($article[0]['date_article']);?></h2>
+    <div>
+        <div class="text-xs">
+            <p><?php echo htmlspecialchars($article[0]['pseudo']); ?> / <?php echo htmlspecialchars($article[0]['date_formatee']);?></p>
+        </div>
         <h1 class="text-2xl"><?php echo htmlspecialchars($article[0]['titre']); ?></h1>
         <p><?php echo nl2br(htmlspecialchars($article[0]['description'])); ?></p>
     </div>
