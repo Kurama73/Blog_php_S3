@@ -9,7 +9,8 @@ $ex_results = null;
 $filter = isset($_GET['filter']) ? $_GET['filter'] : '';
 if ($filter) {
     $stmt = $con->prepare("
-            SELECT *, COUNT(commentaire.id_commentaire) AS comment_count 
+            SELECT *, COUNT(commentaire.id_commentaire) AS comment_count,
+            DATE_FORMAT(article.date_article, '%b %d %Y') AS date_formatee
             FROM article 
             LEFT JOIN commentaire ON article.id_article = commentaire.id_article
             LEFT JOIN utilisateur ON article.id_utilisateur = utilisateur.id_utilisateur
@@ -22,7 +23,8 @@ if ($filter) {
     $stmt->bindValue(':filter', '%' . $filter . '%');
 } else {
     $stmt = $con->prepare("
-            SELECT *, COUNT(commentaire.id_commentaire) AS comment_count 
+            SELECT *, COUNT(commentaire.id_commentaire) AS comment_count,
+            DATE_FORMAT(article.date_article, '%b %d, %Y') AS date_formatee
             FROM article 
             LEFT JOIN commentaire ON article.id_article = commentaire.id_article
             LEFT JOIN utilisateur ON article.id_utilisateur = utilisateur.id_utilisateur
@@ -122,7 +124,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
                     <?php endif; ?>
 
                     <div class="text-xs mb-2 ">
-                        <p class="font-medium"><?php echo $row['pseudo'] ?> / <?php echo $row['date_article'] ?> / <?php echo $row['nom'] ?></p>
+                        <p class="font-medium"><?php echo $row['pseudo'] ?> / <?php echo $row['date_formatee'] ?> / <?php echo $row['nom'] ?></p>
                     </div>
 
                     <h1 class="article-title font-bold mb-1"><?php echo htmlspecialchars($row['titre']); ?></h1>
