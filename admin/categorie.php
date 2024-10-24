@@ -89,7 +89,7 @@ if (isset($_POST['view_articles'])) {
             </div>
         </form>
 
-        <!-- Table for categories -->
+        <!-- Table -->
         <table class="bg-white border-gray-200 border-solid border-2 w-3/5">
             <thead>
                 <tr>
@@ -139,7 +139,7 @@ if (isset($_POST['view_articles'])) {
 
 
 
-        <!-- Article list for selected category -->
+        <!-- Article list-->
         <?php if (!empty($article_list)): ?>
         <div class="mt-8 w-4/5">
             <h2 class="text-2xl font-bold mb-4">Articles in Selected Category</h2>
