@@ -9,6 +9,7 @@ session_unset();
 $ex_password = null;
 $_SESSION["isConnected"] = false;
 $_SESSION["isAdmin"] = false;
+$_SESSION["username"] = null;
 
 if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
     if (str_contains($_POST["in-email"], "@")) {

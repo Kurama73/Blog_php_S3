@@ -14,7 +14,7 @@ if (!(basename($_SERVER['PHP_SELF']) == "categorie.php")) {
 
 } else {
 
-    if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
+    if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false && !(basename($_SERVER['PHP_SELF']) == "choose-username.php")) {
 
         header("Location: ../src/index.php");
         exit;
