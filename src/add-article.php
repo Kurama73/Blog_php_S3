@@ -14,7 +14,7 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]
 
     //recuperation id_utilisateur
     $stmt = $con->prepare("SELECT id_utilisateur FROM utilisateur WHERE pseudo = ?");
-    $stmt->bindParam(1, $_SESSION["username"]);
+    $stmt->bindParam(1, $_SESSION["pseudo"]);
     $stmt->execute();
     $idUtilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -50,8 +50,6 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]
     </head>
     <body class="bg-gray-100 flex justify-center items-center min-h-screen">
 
-
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

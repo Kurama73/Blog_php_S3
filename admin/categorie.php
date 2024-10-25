@@ -8,8 +8,8 @@ if (!isset($_SESSION["isConnected"]) || $_SESSION["isConnected"] == false) {
     exit;
 }
 
-if (!isset($_SESSION["username"]) || empty($_SESSION["username"] )) {
-    header("Location: ../src/choose-username.php");
+if (!isset($_SESSION["pseudo"]) || empty($_SESSION["pseudo"] )) {
+    header("Location: ../src/choose-pseudo.php");
     exit;
 }
 
