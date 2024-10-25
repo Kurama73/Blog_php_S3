@@ -1,4 +1,5 @@
 <?php
+
 $con = null;
 try {
     // Database connection
@@ -9,4 +10,5 @@ try {
 } catch (Exception $e) {
     die('General error: ' . $e->getMessage());
 }
+
 ?>

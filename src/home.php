@@ -99,43 +99,46 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
     <!-- Article -->
     <div class="flex flex-col w-full m-auto shadow-xl">
 
-        <?php foreach ($article as $row): ?>
-            <?php
-            if ($row == $article[0]) {
-                $border_radius = "rounded-t-xl";
-            } else if ($row == $article[$nb_row - 1]) {
-                $border_radius = "rounded-b-xl";    
-            } else {
-                $border_radius = "rounded-none";
-            }
-            ?>
+    <?php foreach ($article as $row): ?>
+        <?php
+        if ($row == $article[0]) {
+            $border_radius = "rounded-t-xl";
+        } else if ($row == $article[$nb_row - 1]) {
+            $border_radius = "rounded-b-xl";    
+        } else {
+            $border_radius = "rounded-none";
+        }
+        ?>
 
-            <a href="article.php?id=<?php echo $row['id_article']; ?>&filter=<?php echo urlencode($filter); ?>">
+        <a href="article.php?id=<?php echo $row['id_article']; ?>&filter=<?php echo urlencode($filter); ?>">
 
-                <div class="article w-full bg-gray-300 px-4 py-5 border-primary-400 border-b-2 <?php echo $border_radius; ?>">
+            <div class="article w-full bg-gray-300 p-4 border-b-2 border-primary-400 <?php echo $border_radius; ?> overflow-hidden">
 
-                    <?php if (strtolower($row['id_utilisateur']) == $_SESSION["id"]): ?>
-                        <form method="post" action="home.php" class="float-right">
+                <?php if (strtolower($row['id_utilisateur']) == $_SESSION["id"]): ?>
+                    <form method="post" action="home.php" class="float-right">
+                        <input type="hidden" name="id-article" value="<?php echo $row['id_article']; ?>">
+                        <button type="submit" name="delete-article" class="focus:outline-none">
+                            <img src="./images/icons/gi_delete.svg" alt="delete-icon">
+                        </button>
+                    </form>
+                <?php endif; ?>
 
-                            <input type="hidden" name="id-article" value="<?php echo $row['id_article']; ?>">
-                            <button type="submit" name="delete-article"><img src="./images/icons/gi_delete.svg" alt="delete-icon"></button>
-
-                        </form>
-                    <?php endif; ?>
-
-                    <div class="text-xs mb-2 ">
-                        <p class="font-medium"><?php echo $row['pseudo'] ?> / <?php echo $row['date_formatee'] ?> / <?php echo $row['nom'] ?></p>
-                    </div>
-
-                    <h1 class="article-title font-bold mb-1"><?php echo htmlspecialchars($row['titre']); ?></h1>
-                    <p class="mb-4"><?php echo nl2br(htmlspecialchars($row['description'])); ?></p>
-                    <h2 class="text-md">&#128172;<?php echo htmlspecialchars($row['comment_count']); ?></h2>
-
+                <div class="text-xs mb-2">
+                    <p class="font-medium"><?php echo $row['pseudo'] ?> / <?php echo $row['date_formatee'] ?> / <?php echo $row['nom'] ?></p>
                 </div>
-            </a>
-        <?php endforeach; ?>
 
-    </div>
+                <h1 class="article-title font-bold mb-1 break-words"><?php echo htmlspecialchars($row['titre']); ?></h1>
+                <p class="mb-4 break-words overflow-hidden overflow-ellipsis"><?php echo nl2br(htmlspecialchars($row['description'])); ?></p>
+                <h2 class="text-md">&#128172;<?php echo htmlspecialchars($row['comment_count']); ?></h2>
+
+            </div>
+        </a>
+    <?php endforeach; ?>
+
+</div>
+
+
+
 
     <p class="text-xl"><?php echo $ex_results; ?></p>
 
