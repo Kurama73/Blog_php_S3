@@ -48,7 +48,13 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - add article</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Add article</title>
 </head>
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
 
@@ -57,12 +63,11 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]
     <div class="p-8 rounded-xl shadow-lg w-full max-w-2xl m-auto px-4 my-9 bg-gray-300">
         <form action="add-article.php" method="post" class="space-y-6">
 
-            <div>
-
-                <label for="titre" class="block text-gray-700 font-bold">Title (100 max char)</label>
-
-                <input type="text" id="titre" name="titre" maxlength="100" required class="mt-2 p-3 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
+            <label for="titre" class="block text-gray-700 font-bold">
+                Title (100 char. max)
+                <input type="text" id="titre" name="titre" maxlength="100" required
+                       class="mt-2 p-3 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </label>
 
             <div>
 

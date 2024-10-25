@@ -30,7 +30,7 @@ $comments = $stmtComments->fetchAll(PDO::FETCH_ASSOC);
 
 if (isset($_POST["delete-article"]) && isset($_POST["id_commentaire"])) {
     $stmtComments = $con->prepare("DELETE FROM commentaire WHERE id_commentaire = ?");
-    $stmtComments->bindParam(1,$_POST["id_commentaire"]);
+    $stmtComments->bindParam(1, $_POST["id_commentaire"]);
     $stmtComments->execute();
 
     header("Location: article.php?id=" . $id);
@@ -54,14 +54,10 @@ if (!empty($_POST["comment"])) {
 <!DOCTYPE html>
 <html lang="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($article['titre']); ?></title>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <main class="max-w-2xl m-auto px-4">
-
     <!-- Bouton de retour -->
     <a href="home.php" class="return-button">
         <div class="circle">
@@ -70,47 +66,60 @@ if (!empty($_POST["comment"])) {
     </a>
 
     <!-- Article -->
-    <div>
-        <div class="text-xs">
-            <p><?php echo htmlspecialchars($article[0]['pseudo']); ?> / <?php echo htmlspecialchars($article[0]['date_formatee']);?></p>
+    <div class="rounded-xl shadow-lg w-full max-w-2xl m-auto px-4 py-5 my-9 bg-gray-300">
+        <div class="text-xs mb-2">
+            <p><?php echo htmlspecialchars($article[0]['pseudo']); ?>
+                / <?php echo htmlspecialchars($article[0]['date_formatee']); ?></p>
         </div>
-        <h1 class="text-2xl"><?php echo htmlspecialchars($article[0]['titre']); ?></h1>
+        <h1 class="font-bold mb-1"><?php echo htmlspecialchars($article[0]['titre']); ?></h1>
         <p><?php echo nl2br(htmlspecialchars($article[0]['description'])); ?></p>
     </div>
 
-    <!-- Ajout commentaire -->
-    <div class="add-comment-block">
-        <h3>Ajouter un commentaire</h3>
-        <form method="POST">
-            <textarea name="comment" rows="4" placeholder="Your comment"></textarea>
-            <input type="submit" value="Send">
-        </form>
-    </div>
+    <div>
+        <!-- Ajout commentaire -->
+        <div>
+            <form method="POST" class="flex">
 
-    <!-- Liste des commentaires -->
-    <div class="comments-block">
-        <h3>Commentaire(s)</h3>
-        <?php foreach ($comments as $comment): ?>
-            <div class="comment">
+                    <textarea name="comment" maxlength="280" rows="1" placeholder="Add a comment"
+                              class="w-full resize-none px-4 py-3 rounded-sm"></textarea>
 
-                <?php echo htmlspecialchars($comment['pseudo']); ?> / <?php echo htmlspecialchars($comment['date']); ?>
-                <p><?php echo nl2br(htmlspecialchars($comment['contenu'])); ?></p>
+                <input type="submit" value="Send" class="bg-blue-600 rounded-lg ml-1 px-4 text-white">
+            </form>
+        </div>
 
-                <?php
-                    if(strtolower($comment['pseudo']) == strtolower($_SESSION["pseudo"])): ?>
-                        
+        <hr class="my-10 border-2">
+
+        <!-- Liste des commentaires -->
+        <div>
+            <h3>Comments</h3>
+            <?php foreach ($comments as $comment): ?>
+                <div>
+
+                    <p class="text-xs mb-2"><?php echo htmlspecialchars($comment['pseudo']); ?>
+                        / <?php echo htmlspecialchars($comment['date']); ?></p>
+
+                    <p><?php echo nl2br(htmlspecialchars($comment['contenu'])); ?></p>
+
+                    <?php
+                    if (strtolower($comment['pseudo']) == strtolower($_SESSION["pseudo"])): ?>
+
                         <form method="post">
 
-                            <input type="hidden" name="id_commentaire" value="<?php echo $comment['id_commentaire']; ?>">
-                            <button type="submit" name="delete-article"><img src="./images/icons/gi_delete.svg" alt="delete-icon"></button>
+                            <input type="hidden" name="id_commentaire"
+                                   value="<?php echo $comment['id_commentaire']; ?>">
+                            <button type="submit" name="delete-article"><img src="./images/icons/gi_delete.svg"
+                                                                             alt="delete-icon"></button>
 
                         </form>
-                    
-                <?php endif; ?>
 
-            </div>
-        <?php endforeach; ?>
+                    <?php endif; ?>
+
+                </div>
+            <?php endforeach; ?>
+        </div>
+
     </div>
+
 </main>
 </body>
 </html>
