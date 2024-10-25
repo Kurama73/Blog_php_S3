@@ -97,7 +97,7 @@ if (!empty($_POST["comment"])) {
                 <p><?php echo nl2br(htmlspecialchars($comment['contenu'])); ?></p>
 
                 <?php
-                    if(strtolower($comment['pseudo']) == strtolower($_SESSION["username"])): ?>
+                    if(strtolower($comment['pseudo']) == strtolower($_SESSION["pseudo"])): ?>
                         
                         <form method="post">
 
