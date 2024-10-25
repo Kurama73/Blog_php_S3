@@ -71,7 +71,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
         <?php if ($_SESSION["isAdmin"] == true): ?>
             <form  method="post" action="../admin/categorie.php">
 
-                <input type="submit" value="Access to CRUD" class="rounded-2xl px-3.5">
+                <input type="submit" value="Access to CRUD" class="rounded-2xl px-3.5 mx-3 cursor-pointer">
 
             </form>
         <?php endif; ?>
@@ -81,7 +81,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
             <img src="./images/icons/gi_search.svg" alt="search-icon" class="bg-gray-50 rounded-l-2xl pl-3">
             <input type="text" name="filter" placeholder="Filter by pseudo"
                    value="<?php echo htmlspecialchars($filter); ?>" class="w-full rounded-r-md outline-none px-3.5">
-            <input type="submit" name="bt-filter" value="Filter" class="home-header-filter hidden sm:flex w-1/5 px-3.5">
+            <input type="submit" name="bt-filter" value="Filter" class="home-header-filter hidden sm:flex w-1/5 px-3.5 cursor-pointer">
             <input type="image" src="./images/icons/gi_filter.svg" alt="filter-con" class="home-header-filter flex sm:hidden px-2">
 
         </form>
@@ -89,7 +89,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
         <!-- Button create an article -->
         <form method="post" action="add-article.php">
 
-                <input type="submit" name="bt-create-article" value="Create an article" class="hidden sm:flex rounded-2xl px-3.5">
+                <input type="submit" name="bt-create-article" value="Create an article" class="hidden sm:flex rounded-2xl px-3.5 mx-3 cursor-pointer">
                 <input type="image" src="./images/icons/gi_post.svg" alt="create-article-icon" class="flex sm:hidden rounded-2xl px-2">
 
         </form>
@@ -123,14 +123,15 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
                     </form>
                 <?php endif; ?>
 
-                <div class="text-xs mb-2">
-                    <p class="font-medium"><?php echo $row['pseudo'] ?> / <?php echo $row['date_formatee'] ?> / <?php echo $row['nom'] ?></p>
+                <div  class="px-4 py-5">
+                    <div class="text-xs mb-2">
+                        <p class="font-medium"><?php echo $row['pseudo'] ?> / <?php echo $row['date_formatee'] ?> / <?php echo $row['nom'] ?></p>
+                    </div>
+
+                        <h1 class="article-title font-bold mb-1 break-words"><?php echo htmlspecialchars($row['titre']); ?></h1>
+                        <p class="mb-4 break-words overflow-hidden overflow-ellipsis"><?php echo nl2br(htmlspecialchars($row['description'])); ?></p>
+                        <h2 class="text-md">&#128172;<?php echo htmlspecialchars($row['comment_count']); ?></h2>
                 </div>
-
-                <h1 class="article-title font-bold mb-1 break-words"><?php echo htmlspecialchars($row['titre']); ?></h1>
-                <p class="mb-4 break-words overflow-hidden overflow-ellipsis"><?php echo nl2br(htmlspecialchars($row['description'])); ?></p>
-                <h2 class="text-md">&#128172;<?php echo htmlspecialchars($row['comment_count']); ?></h2>
-
             </div>
         </a>
     <?php endforeach; ?>
