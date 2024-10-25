@@ -73,8 +73,8 @@ if (isset($_POST['view_articles'])) {
     <title>Crud</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
-    <div class="flex flex-col justify-center items-center">
+<body class="bg-gray-100 max-w-2xl m-auto px-4">
+    <main class="flex flex-col justify-center items-center">
         
         <!-- Title -->
         <div class="home-header flex justify-center my-9">
@@ -91,7 +91,7 @@ if (isset($_POST['view_articles'])) {
         </form>
 
         <!-- Table -->
-        <table class="bg-white border-gray-200 border-solid border-2 w-3/5">
+        <table class="bg-white border-gray-200 border-solid border-2">
             <thead>
                 <tr>
                     <th class="px-4 py-2">ID</th>
@@ -104,7 +104,7 @@ if (isset($_POST['view_articles'])) {
                 <?php foreach ($categories as $categorie): ?>
 
                 <tr>
-                    <td class="border px-4 py-2 flex justify-center"><?= htmlspecialchars($categorie['id_categorie']) ?></td>
+                    <td class="border px-4 py-2 text-center"><?= htmlspecialchars($categorie['id_categorie']) ?></td>
 
                     <td class="border px-4 py-2">
                         <form method="POST" class="inline">
@@ -133,8 +133,9 @@ if (isset($_POST['view_articles'])) {
 
         <!-- Article list-->
         <?php if (!empty($article_list)): ?>
-        <div class="mt-8 w-4/5">
-            <h2 class="text-2xl font-bold mb-4">Articles in Selected Category</h2>
+        <div class="home-header w-3/5 justify-center my-9">
+            <h2 class="text-2xl font-bold flex justify-center">Articles in Selected Category</h2>
+            <br>
             <table class="min-w-full bg-white border-gray-200 border-solid border-2">
                 <thead>
                     <tr>
@@ -153,6 +154,6 @@ if (isset($_POST['view_articles'])) {
             </table>
         </div>
         <?php endif; ?>
-    </div>
+    </main>
 </body>
 </html>
