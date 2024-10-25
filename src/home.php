@@ -87,7 +87,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
         </form>
 
         <!-- Button create an article -->
-        <form action="add-article.php"> 
+        <form method="post" action="add-article.php">
 
                 <input type="submit" name="bt-create-article" value="Create an article" class="hidden sm:flex rounded-2xl px-3.5">
                 <input type="image" src="./images/icons/gi_post.svg" alt="create-article-icon" class="flex sm:hidden rounded-2xl px-2">
@@ -112,7 +112,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
 
             <a href="article.php?id=<?php echo $row['id_article']; ?>&filter=<?php echo urlencode($filter); ?>">
 
-                <div class="article w-full bg-gray-300 px-4 py-5 border-primary-400 border-b-2 <?php echo $border_radius; ?>">
+                <div class="bg-gray-300 px-4 py-5 border-primary-400 border-b-2 <?php echo $border_radius; ?>">
 
                     <?php if (strtolower($row['id_utilisateur']) == $_SESSION["id"]): ?>
                     <form method="post" action="home.php" class="float-right">
