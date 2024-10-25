@@ -3,9 +3,9 @@
 require_once('header.php');
 
 
-if (!empty($_POST["in-username"])) {
+if (!empty($_POST["in-pseudo"])) {
     // Initializing session variable
-    $_SESSION["username"] = strtolower($_POST["in-username"]);
+    $_SESSION["pseudo"] = strtolower($_POST["in-pseudo"]);
 
     try {
         // Adding the new user in the database
@@ -17,7 +17,7 @@ if (!empty($_POST["in-username"])) {
 
         $email = $_SESSION["email"];
         $mdp = $_SESSION["password"];
-        $pseudo = $_SESSION["username"];
+        $pseudo = $_SESSION["pseudo"];
         $admin = 0;
 
         $stmt->execute();
@@ -37,10 +37,10 @@ if (!empty($_POST["in-username"])) {
 <body>
 
 <div class="form-container">
-    <h1 class="text-2xl">Choose your username</h1>
+    <h1 class="text-2xl">Choose your pseudo</h1>
 
-    <form method="post" action="choose-username.php">
-        <input type="text" name="in-username" placeholder="Monsieur Jaloux" required>
+    <form method="post" action="choose-pseudo.php">
+        <input type="text" name="in-pseudo" placeholder="Monsieur Jaloux" required>
         <input type="submit" name="sb-login" value="Sign Up" class="form-button">
     </form>
 

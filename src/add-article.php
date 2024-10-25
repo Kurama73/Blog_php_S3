@@ -38,6 +38,7 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]
 
     header("Location: home.php");
     exit;
+}
 
     ?>
     <!DOCTYPE html>
@@ -70,8 +71,7 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]
 
                 <label for="titre" class="block text-gray-700 font-bold">Title (100 max char)</label>
 
-                <input type="text" id="titre" name="titre" maxlength="100" required
-                       class="mt-2 p-3 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="titre" name="titre" maxlength="100" required class="mt-2 p-3 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
             <div>

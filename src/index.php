@@ -9,7 +9,7 @@ session_unset();
 $ex_password = null;
 $_SESSION["isConnected"] = false;
 $_SESSION["isAdmin"] = false;
-$_SESSION["username"] = null;
+$_SESSION["pseudo"] = null;
 
 if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
     if (str_contains($_POST["in-email"], "@")) {
@@ -37,7 +37,7 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
 
                         // Initialization of session variables
                         $_SESSION["id"] = $user["id_utilisateur"];
-                        $_SESSION["username"] = $user["pseudo"];
+                        $_SESSION["pseudo"] = $user["pseudo"];
                         $_SESSION["isConnected"] = true;
 
                         if ($user["admin"] == 1) {
@@ -54,7 +54,7 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
             }
 
             if ($ex_password == null) {
-                header('Location: choose-username.php');
+                header('Location: choose-pseudo.php');
                 exit();
             }
 

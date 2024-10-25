@@ -1,8 +1,9 @@
 <?php
 session_start();
 require_once('pdo.php');
+$_SESSION["isAdmin"] = false;
 
-if (!(basename($_SERVER['PHP_SELF']) == "index.php") && !(basename($_SERVER['PHP_SELF']) == "choose-username.php")) {
+if (!(basename($_SERVER['PHP_SELF']) == "index.php") && !(basename($_SERVER['PHP_SELF']) == "choose-pseudo.php")) {
     require ('redirection.php');
 }
 
