@@ -72,7 +72,6 @@ if (isset($_POST['view_articles'])) {
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
->
     <div class="flex flex-col justify-center items-center">
         
         <!-- Title -->
