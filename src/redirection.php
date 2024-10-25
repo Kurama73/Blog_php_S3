@@ -26,6 +26,5 @@ if (!(basename($_SERVER['PHP_SELF']) == "categorie.php")) {
     }
 
 }
-
     
 ?>

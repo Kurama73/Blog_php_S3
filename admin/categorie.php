@@ -154,6 +154,7 @@ if (isset($_POST['view_articles'])) {
             </table>
         </div>
         <?php endif; ?>
+        
     </main>
 </body>
 </html>

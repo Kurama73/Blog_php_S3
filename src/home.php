@@ -79,7 +79,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
         <form method="get" action="home.php" class="flex w-7/12">
 
             <img src="./images/icons/gi_search.svg" alt="search-icon" class="bg-gray-50 rounded-l-2xl pl-3">
-            <input type="text" name="filter" placeholder="Filter by username"
+            <input type="text" name="filter" placeholder="Filter by pseudo"
                    value="<?php echo htmlspecialchars($filter); ?>" class="w-full rounded-r-md outline-none px-3.5">
             <input type="submit" name="bt-filter" value="Filter" class="home-header-filter hidden sm:flex w-1/5 px-3.5">
             <input type="image" src="./images/icons/gi_filter.svg" alt="filter-con" class="home-header-filter flex sm:hidden px-2">
@@ -115,12 +115,12 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
                 <div class="article w-full bg-gray-300 px-4 py-5 border-primary-400 border-b-2 <?php echo $border_radius; ?>">
 
                     <?php if (strtolower($row['id_utilisateur']) == $_SESSION["id"]): ?>
-                    <form method="post" action="home.php" class="float-right">
+                        <form method="post" action="home.php" class="float-right">
 
-                        <input type="hidden" name="id-article" value="<?php echo $row['id_article']; ?>">
-                        <button type="submit" name="delete-article"><img src="./images/icons/gi_delete.svg" alt="delete-icon"></button>
+                            <input type="hidden" name="id-article" value="<?php echo $row['id_article']; ?>">
+                            <button type="submit" name="delete-article"><img src="./images/icons/gi_delete.svg" alt="delete-icon"></button>
 
-                    </form>
+                        </form>
                     <?php endif; ?>
 
                     <div class="text-xs mb-2 ">
