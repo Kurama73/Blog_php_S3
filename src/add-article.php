@@ -41,6 +41,7 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>

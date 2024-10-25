@@ -6,15 +6,16 @@
 </head>
 <body>
 
-<footer class="flex justify-between items-center px-5 py-20 text-gray-500">
-    <h3 class="text-xl">Blog.kpf</h3>
-    <ul>
-        <li>Thomas Koenig</li>
-        <li>Alec Petit-Siejak</li>
-        <li>Tom Frumy</li>
-    </ul>
+    <footer class="flex justify-between items-center px-5 py-20 text-gray-500">
+        
+        <h3 class="text-xl">Blog.kpf</h3>
+        <ul>
+            <li>Thomas Koenig</li>
+            <li>Alec Petit-Siejak</li>
+            <li>Tom Frumy</li>
+        </ul>
 
-</footer>
+    </footer>
 
 </body>
 </html>

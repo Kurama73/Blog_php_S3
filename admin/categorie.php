@@ -20,22 +20,24 @@ if (!isset($_SESSION["isAdmin"]) || $_SESSION["isAdmin"] == false) {
 
 // Ajouter une nouvelle catégorie
 if (isset($_POST['add'])) {
-    $name = $_POST['name'];
+    $name = $_POST['name'] ?? null; // Utilise null si 'name' n'existe pas
     if (!empty($name)) {
-        $stmt = $con->prepare("INSERT INTO categorie(nom) VALUES (:name)");
+        $stmt = $con->prepare("INSERT INTO categorie (nom) VALUES (:name)");
         $stmt->execute(['name' => $name]);
         header("Location: " . $_SERVER['PHP_SELF']);
+        exit;
     }
 }
 
 // Modifier une catégorie
-if (isset($_POST['update'])) {
+if (isset($_POST['update']) && isset($_POST['name'])) {
     $id = $_POST['id_categorie'];
     $name = $_POST['name'];
     if (!empty($name)) {
         $stmt = $con->prepare("UPDATE categorie SET nom = :name WHERE id_categorie = :id");
         $stmt->execute(['name' => $name, 'id' => $id]);
         header("Location: " . $_SERVER['PHP_SELF']);
+        exit;
     }
 }
 
@@ -71,8 +73,8 @@ if (isset($_POST['view_articles'])) {
     <title>Crud</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
-    <div class="flex flex-col justify-center items-center">
+<body class="bg-gray-100 max-w-2xl m-auto px-4">
+    <main class="flex flex-col justify-center items-center">
         
         <!-- Title -->
         <div class="home-header flex justify-center my-9">
@@ -89,7 +91,7 @@ if (isset($_POST['view_articles'])) {
         </form>
 
         <!-- Table -->
-        <table class="bg-white border-gray-200 border-solid border-2 w-3/5">
+        <table class="bg-white border-gray-200 border-solid border-2">
             <thead>
                 <tr>
                     <th class="px-4 py-2">ID</th>
@@ -102,34 +104,25 @@ if (isset($_POST['view_articles'])) {
                 <?php foreach ($categories as $categorie): ?>
 
                 <tr>
-                    <td class="border px-4 py-2 flex  justify-center"><?= htmlspecialchars($categorie['id_categorie']) ?></td>
+                    <td class="border px-4 py-2 text-center"><?= htmlspecialchars($categorie['id_categorie']) ?></td>
 
                     <td class="border px-4 py-2">
                         <form method="POST" class="inline">
                             <input type="hidden" name="id_categorie" value="<?= $categorie['id_categorie'] ?>">
                             <input type="text" name="name" value="<?= htmlspecialchars($categorie['nom']) ?>" required class="border border-gray-300 p-2 rounded w-full">
-                        </form>
                     </td>
 
                     <td class="border px-4 py-2 w-2/5">
-
                         <div class="flex space-x-2">
-                            <form method="POST" class="inline">
-                                <input type="hidden" name="id_categorie" value="<?= $categorie['id_categorie'] ?>">
-                                <button type="submit" name="update" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Update</button>
-                            </form>
+                            <button type="submit" name="update" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Update</button>
 
-                            <form method="POST" class="inline" onsubmit="return confirm('Are you sure to remove this category?');">
-                                <input type="hidden" name="id_categorie" value="<?= $categorie['id_categorie'] ?>">
-                                <button type="submit" name="delete" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Remove</button>
-                            </form>
+                            <button type="submit" name="delete" class="bg-blue-500 text-white px-4 py-2 rounded-lg" onclick="return confirm('Are you sure to remove this category?');">Remove</button>
 
-                            <form method="POST" class="inline">
-                                <input type="hidden" name="id_categorie" value="<?= $categorie['id_categorie'] ?>">
-                                <button type="submit" name="view_articles" class="bg-blue-500 text-white px-4 py-2 rounded-lg">View Articles</button>
-                            </form>
+                            <button type="submit" name="view_articles" class="bg-blue-500 text-white px-4 py-2 rounded-lg">View Articles</button>
                         </div>
+                        </form>
                     </td>
+
                 </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -140,8 +133,9 @@ if (isset($_POST['view_articles'])) {
 
         <!-- Article list-->
         <?php if (!empty($article_list)): ?>
-        <div class="mt-8 w-4/5">
-            <h2 class="text-2xl font-bold mb-4">Articles in Selected Category</h2>
+        <div class="home-header w-3/5 justify-center my-9">
+            <h2 class="text-2xl font-bold flex justify-center">Articles in Selected Category</h2>
+            <br>
             <table class="min-w-full bg-white border-gray-200 border-solid border-2">
                 <thead>
                     <tr>
@@ -160,6 +154,7 @@ if (isset($_POST['view_articles'])) {
             </table>
         </div>
         <?php endif; ?>
-    </div>
+        
+    </main>
 </body>
 </html>
