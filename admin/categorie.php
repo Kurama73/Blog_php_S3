@@ -20,22 +20,24 @@ if (!isset($_SESSION["isAdmin"]) || $_SESSION["isAdmin"] == false) {
 
 // Ajouter une nouvelle catégorie
 if (isset($_POST['add'])) {
-    $name = $_POST['name'];
+    $name = $_POST['name'] ?? null; // Utilise null si 'name' n'existe pas
     if (!empty($name)) {
-        $stmt = $con->prepare("INSERT INTO categorie(nom) VALUES (:name)");
+        $stmt = $con->prepare("INSERT INTO categorie (nom) VALUES (:name)");
         $stmt->execute(['name' => $name]);
         header("Location: " . $_SERVER['PHP_SELF']);
+        exit;
     }
 }
 
 // Modifier une catégorie
-if (isset($_POST['update'])) {
+if (isset($_POST['update']) && isset($_POST['name'])) {
     $id = $_POST['id_categorie'];
     $name = $_POST['name'];
     if (!empty($name)) {
         $stmt = $con->prepare("UPDATE categorie SET nom = :name WHERE id_categorie = :id");
         $stmt->execute(['name' => $name, 'id' => $id]);
         header("Location: " . $_SERVER['PHP_SELF']);
+        exit;
     }
 }
 
@@ -102,34 +104,25 @@ if (isset($_POST['view_articles'])) {
                 <?php foreach ($categories as $categorie): ?>
 
                 <tr>
-                    <td class="border px-4 py-2 flex  justify-center"><?= htmlspecialchars($categorie['id_categorie']) ?></td>
+                    <td class="border px-4 py-2 flex justify-center"><?= htmlspecialchars($categorie['id_categorie']) ?></td>
 
                     <td class="border px-4 py-2">
                         <form method="POST" class="inline">
                             <input type="hidden" name="id_categorie" value="<?= $categorie['id_categorie'] ?>">
                             <input type="text" name="name" value="<?= htmlspecialchars($categorie['nom']) ?>" required class="border border-gray-300 p-2 rounded w-full">
-                        </form>
                     </td>
 
                     <td class="border px-4 py-2 w-2/5">
-
                         <div class="flex space-x-2">
-                            <form method="POST" class="inline">
-                                <input type="hidden" name="id_categorie" value="<?= $categorie['id_categorie'] ?>">
-                                <button type="submit" name="update" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Update</button>
-                            </form>
+                            <button type="submit" name="update" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Update</button>
 
-                            <form method="POST" class="inline" onsubmit="return confirm('Are you sure to remove this category?');">
-                                <input type="hidden" name="id_categorie" value="<?= $categorie['id_categorie'] ?>">
-                                <button type="submit" name="delete" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Remove</button>
-                            </form>
+                            <button type="submit" name="delete" class="bg-blue-500 text-white px-4 py-2 rounded-lg" onclick="return confirm('Are you sure to remove this category?');">Remove</button>
 
-                            <form method="POST" class="inline">
-                                <input type="hidden" name="id_categorie" value="<?= $categorie['id_categorie'] ?>">
-                                <button type="submit" name="view_articles" class="bg-blue-500 text-white px-4 py-2 rounded-lg">View Articles</button>
-                            </form>
+                            <button type="submit" name="view_articles" class="bg-blue-500 text-white px-4 py-2 rounded-lg">View Articles</button>
                         </div>
+                        </form>
                     </td>
+
                 </tr>
                 <?php endforeach; ?>
             </tbody>
