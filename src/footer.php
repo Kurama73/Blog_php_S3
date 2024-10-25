@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <footer class="flex justify-between items-center px-5 py-20 text-gray-500">
+    <footer class="flex justify-between items-center px-5 py-20 text-white">
         
         <h3 class="text-xl">Blog.kpf</h3>
         <ul>

@@ -65,7 +65,7 @@ if (!empty($_POST["comment"])) {
     </a>
 
     <!-- Article -->
-    <div class="rounded-xl shadow-lg w-full max-w-2xl m-auto px-4 py-5 my-5 bg-gray-300">
+    <div class="rounded-xl shadow-lg w-full max-w-2xl m-auto px-4 py-5 my-5 bg-woodsmoke-800 text-white">
         <div class="text-xs mb-2">
             <p><?php echo htmlspecialchars($article[0]['pseudo']); ?>
                 / <?php echo htmlspecialchars($article[0]['date_formatee']); ?></p>
@@ -88,7 +88,7 @@ if (!empty($_POST["comment"])) {
 
         <!-- Liste des commentaires -->
         <div class="w-full bg-gray-100 rounded-xl shadow-lg mt-5">
-            <h3 class="text-xl font-semibold text-gray-800 p-4 border-b border-gray-300">Comments</h3>
+            <h3 class="text-xl font-semibold text-white p-4 border-b border-gray-300">Comments</h3>
 
             <?php foreach ($comments as $index => $comment): ?>
                 <div class="p-4 <?php echo ($index < count($comments) - 1) ? 'border-b border-gray-300' : ''; ?>">

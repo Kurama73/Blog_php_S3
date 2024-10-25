@@ -5,7 +5,7 @@
 @layer base {
     /* Body */
     body {
-        @apply bg-gray-200;
+        @apply bg-woodsmoke-900;
     }
 
     /* Connection form */
@@ -40,10 +40,10 @@
 
     .article:hover {
         .article-title {
-            @apply text-primary-700;
+            @apply text-maroon-flush-700;
         }
     }
 
-    /* Add article */
+    
 }
 

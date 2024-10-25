@@ -71,7 +71,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
         <?php if ($_SESSION["isAdmin"] == true): ?>
             <form  method="post" action="../admin/categorie.php">
 
-                <input type="submit" value="Access to CRUD" class="rounded-2xl px-3.5 mx-3 cursor-pointer">
+                <input type="submit" value="Access to CRUD" class="rounded-2xl px-3.5 mx-3 cursor-pointer hover:bg-maroon-flush-700">
 
             </form>
         <?php endif; ?>
@@ -81,7 +81,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
             <img src="./images/icons/gi_search.svg" alt="search-icon" class="bg-gray-50 rounded-l-2xl pl-3">
             <input type="text" name="filter" placeholder="Filter by pseudo"
                    value="<?php echo htmlspecialchars($filter); ?>" class="w-full rounded-r-md outline-none px-3.5">
-            <input type="submit" name="bt-filter" value="Filter" class="home-header-filter hidden sm:flex w-1/5 px-3.5 cursor-pointer">
+            <input type="submit" name="bt-filter" value="Filter" class="home-header-filter hidden sm:flex w-1/5 px-3.5 cursor-pointer hover:bg-maroon-flush-700">
             <input type="image" src="./images/icons/gi_filter.svg" alt="filter-con" class="home-header-filter flex sm:hidden px-2">
 
         </form>
@@ -89,7 +89,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
         <!-- Button create an article -->
         <form method="post" action="add-article.php">
 
-                <input type="submit" name="bt-create-article" value="Create an article" class="hidden sm:flex rounded-2xl px-3.5 mx-3 cursor-pointer">
+                <input type="submit" name="bt-create-article" value="Create an article" class="hidden sm:flex rounded-2xl px-3.5 mx-3 cursor-pointer hover:bg-maroon-flush-700">
                 <input type="image" src="./images/icons/gi_post.svg" alt="create-article-icon" class="flex sm:hidden rounded-2xl px-2">
 
         </form>
@@ -97,7 +97,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
     </div>
 
     <!-- Article -->
-    <div class="flex flex-col w-full m-auto shadow-xl">
+    <div class="flex flex-col w-full m-auto shadow-maroon-flush-300 shadow-[0_0px_60px_-15px_rgba(0,0,0,0.3)]">
 
     <?php foreach ($article as $row): ?>
         <?php
@@ -108,16 +108,29 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
         } else {
             $border_radius = "rounded-none";
         }
+
+        $stmt = $con->prepare("SELECT reference.id_categorie, nom FROM categorie 
+                        JOIN reference ON categorie.id_categorie = reference.id_categorie
+                        WHERE reference.id_article = :id_article");
+        $stmt->bindParam(':id_article', $row['id_article'], PDO::PARAM_INT);
+        $stmt->execute();
+        $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $categoryNames = "";
+
+        foreach ($categories as $categorie) {
+            $categoryNames .= $categorie["nom"] . ", ";
+        }
         ?>
+
 
         <a href="article.php?id=<?php echo $row['id_article']; ?>&filter=<?php echo urlencode($filter); ?>">
 
-            <div class="article w-full bg-gray-300 p-4 border-b-2 border-primary-400 <?php echo $border_radius; ?> overflow-hidden">
+            <div class="article w-full bg-woodsmoke-800 p-4 border-b-2 border-maroon-flush-300 text-white" <?php echo $border_radius; ?> overflow-hidden">
 
                 <?php if (strtolower($row['id_utilisateur']) == $_SESSION["id"]): ?>
                     <form method="post" action="home.php" class="float-right">
                         <input type="hidden" name="id-article" value="<?php echo $row['id_article']; ?>">
-                        <button type="submit" name="delete-article" class="focus:outline-none">
+                        <button type="submit" name="delete-article">
                             <img src="./images/icons/gi_delete.svg" alt="delete-icon">
                         </button>
                     </form>
@@ -125,7 +138,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
 
                 <div  class="px-4 py-5">
                     <div class="text-xs mb-2">
-                        <p class="font-medium"><?php echo $row['pseudo'] ?> / <?php echo $row['date_formatee'] ?> / <?php echo $row['nom'] ?></p>
+                        <p class="font-medium"><?php echo $row['pseudo'] ?> / <?php echo $row['date_formatee'] ?> / <?php echo $categoryNames ?></p>
                     </div>
 
                         <h1 class="article-title font-bold mb-1 break-words"><?php echo htmlspecialchars($row['titre']); ?></h1>
