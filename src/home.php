@@ -67,7 +67,8 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
 <main class="max-w-2xl m-auto px-4">
 
     <div class="home-header flex justify-between my-9">
-
+        
+        <!-- CRUD -->
         <?php if ($_SESSION["isAdmin"] == true): ?>
             <form  method="post" action="../admin/categorie.php">
 
@@ -76,6 +77,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
             </form>
         <?php endif; ?>
 
+        <!-- Filter -->
         <form method="get" action="home.php" class="flex w-7/12">
 
             <img src="./images/icons/gi_search.svg" alt="search-icon" class="bg-gray-50 rounded-l-2xl pl-3">
@@ -97,7 +99,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
     </div>
 
     <!-- Article -->
-    <div class="flex flex-col w-full m-auto shadow-maroon-flush-300 shadow-[0_0px_60px_-15px_rgba(0,0,0,0.3)]">
+    <div class="flex flex-col w-full m-auto shadow-[0px_4px_10px_rgba(0,0,0,0.2),0px_8px_20px_rgba(0,0,0,0.15),0px_12px_30px_rgba(255,124,163,0.7),0px_20px_50px_rgba(255,124,163,0.6)]">
 
     <?php foreach ($article as $row): ?>
         <?php
@@ -125,7 +127,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
 
         <a href="article.php?id=<?php echo $row['id_article']; ?>&filter=<?php echo urlencode($filter); ?>">
 
-            <div class="article w-full bg-woodsmoke-800 p-4 border-b-2 border-maroon-flush-300 text-white" <?php echo $border_radius; ?> overflow-hidden">
+            <div class="article w-full bg-woodsmoke-800 p-4 border-b-2 border-maroon-flush-300 text-white" <?php echo $border_radius; ?>>
 
                 <?php if (strtolower($row['id_utilisateur']) == $_SESSION["id"]): ?>
                     <form method="post" action="home.php" class="float-right">

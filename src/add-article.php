@@ -49,43 +49,38 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - add article</title>
 </head>
-<body class="bg-gray-100 flex justify-center items-center min-h-screen">
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <title>Add article</title>
-</head>
-<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<body class="bg-woodsmoke-800 flex justify-center items-center min-h-screen">
 
 <main class="max-w-2xl m-auto px-4">
 
-    <div class="p-8 rounded-xl shadow-lg w-full max-w-2xl m-auto px-4 my-9 bg-gray-300">
+    <div class="p-8 rounded-xl shadow-lg w-full max-w-2xl m-auto px-4 my-9 bg-woodsmoke-800">
         <form action="add-article.php" method="post" class="space-y-6">
 
-            <label for="titre" class="block text-gray-700 font-bold">
+            <!-- Title -->
+            <label for="titre" class="block text-white font-bold">
                 Title (100 char. max)
                 <input type="text" id="titre" name="titre" maxlength="100" required
-                       class="mt-2 p-3 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                       class="mt-2 p-3 w-full border bg-woodsmoke-800 border-maroon-flush-700 rounded-lg focus:outline-none">
             </label>
 
+            <!-- Article -->
             <div>
 
-                <label for="article" class="block text-gray-700 font-bold">Article (280 max char)</label>
+                <label for="article" class="block text-white font-bold">Article (280 max char)</label>
 
                 <textarea type="text" id="article" name="article" maxlength="280" rows="10"
-                          style=overflow:scroll;resize:none required
-                          class="mt-2 p-3 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                          style=resize:none required
+                          class="mt-2 p-3 w-full border text-white bg-woodsmoke-800 border-maroon-flush-700 rounded-lg focus:outline-none"></textarea>
             </div>
 
 
+            <!-- Categories -->
             <div>
 
-
-                <label for="categorie" class="block text-gray-700 font-bold">Choose 1 or more category</label>
+                <label for="categorie" class="block text-white font-bold">Choose 1 or more category</label>
 
                 <select multiple id="categorie" name="categorie[]" required
-                        class="mt-2 p-3 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        class="mt-2 p-3 w-full text-white border bg-woodsmoke-800 border-maroon-flush-700 rounded-lg focus:outline-none">
 
                     <?php
                     require "pdo.php";
@@ -99,15 +94,16 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]
                 </select>
 
             </div>
-
+            
+            <!-- Actions -->
             <div class="flex justify-between">
 
                 <input type="submit" value="Post"
-                       class="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                       class="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 focus:outline-none cursor-pointer">
 
                 <a href="home.php"
-                   class="bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400">
-                    Cancel
+                   class="text-white py-3 px-6 rounded-lg bg-maroon-flush-700 hover:bg-maroon-flush-800 cursor-pointer">
+                   Cancel
                 </a>
 
             </div>

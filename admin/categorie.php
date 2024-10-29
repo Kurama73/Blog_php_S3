@@ -73,25 +73,25 @@ if (isset($_POST['view_articles'])) {
     <title>Crud</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 max-w-2xl m-auto px-4">
+<body class="max-w-2xl m-auto px-4">
     <main class="flex flex-col justify-center items-center">
         
         <!-- Title -->
         <div class="home-header flex justify-center my-9">
-            <h2 class="text-2xl font-bold">Categories</h2>
+            <h2 class="text-2xl font-bold text-white">Categories</h2>
         </div>
 
         <!-- Add-Categories -->
         <form method="POST" class="mb-4 flex justify-center">
             <div class="flex items-center">
-                <label type="text" name="lb-category" class="mr-2">Add a new category: </label>
-                <input type="text" name="name" placeholder="Category name" required min="1" max="20" class="border border-gray-300 p-2 rounded mr-2">
+                <label type="text" name="lb-category" class="mr-2 text-white">Add a new category: </label>
+                <input type="text" name="name" placeholder="Category name" required min="1" max="20" class="border border-gray-300 bg-woodsmoke-800 p-2 rounded mr-2 text-white">
                 <button type="submit" name="add" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Add</button>
             </div>
         </form>
 
         <!-- Table -->
-        <table class="bg-white border-gray-200 border-solid border-2">
+        <table class="bg-woodsmoke-800 text-white w-3/5">
             <thead>
                 <tr>
                     <th class="px-4 py-2">ID</th>
@@ -104,15 +104,15 @@ if (isset($_POST['view_articles'])) {
                 <?php foreach ($categories as $categorie): ?>
 
                 <tr>
-                    <td class="border px-4 py-2 text-center"><?= htmlspecialchars($categorie['id_categorie']) ?></td>
+                    <td class="px-4 py-2 text-center"><?= htmlspecialchars($categorie['id_categorie']) ?></td>
 
-                    <td class="border px-4 py-2">
+                    <td class="px-4 py-2">
                         <form method="POST" class="inline">
                             <input type="hidden" name="id_categorie" value="<?= $categorie['id_categorie'] ?>">
-                            <input type="text" name="name" value="<?= htmlspecialchars($categorie['nom']) ?>" required class="border border-gray-300 p-2 rounded w-full">
+                            <input type="text" name="name" value="<?= htmlspecialchars($categorie['nom']) ?>" required class="border border-gray-300 bg-woodsmoke-800 p-2 rounded mr-2 w-full">
                     </td>
 
-                    <td class="border px-4 py-2 w-2/5">
+                    <td class="px-4 py-2 w-2/5">
                         <div class="flex space-x-2">
                             <button type="submit" name="update" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Update</button>
 
@@ -133,10 +133,10 @@ if (isset($_POST['view_articles'])) {
 
         <!-- Article list-->
         <?php if (!empty($article_list)): ?>
-        <div class="home-header w-3/5 justify-center my-9">
+        <div class="home-header w-3/5 justify-center my-9 text-white">
             <h2 class="text-2xl font-bold flex justify-center">Articles in Selected Category</h2>
             <br>
-            <table class="min-w-full bg-white border-gray-200 border-solid border-2">
+            <table class="min-w-full bg-woodsmoke-800">
                 <thead>
                     <tr>
                         <th class="px-4 py-2">ID</th>
@@ -146,8 +146,8 @@ if (isset($_POST['view_articles'])) {
                 <tbody>
                     <?php foreach ($article_list as $article): ?>
                     <tr>
-                        <td class="border px-4 py-2"><?= htmlspecialchars($article['id_article']) ?></td>
-                        <td class="border px-4 py-2"><?= htmlspecialchars($article['titre']) ?></td>
+                        <td class="px-4 py-2 text-center"><?= htmlspecialchars($article['id_article']) ?></td>
+                        <td class="px-4 py-2"><?= htmlspecialchars($article['titre']) ?></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
