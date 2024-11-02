@@ -1,1 +1,2 @@
 - Base de données dans ressources
+- Admin : userpikachu@gmail.com | pika
