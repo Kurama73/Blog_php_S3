@@ -7,7 +7,7 @@ if (!(basename($_SERVER['PHP_SELF']) == "categorie.php")) {
         exit;
     }
 
-    if (!isset($_SESSION["pseudo"]) || empty($_SESSION["pseudo"] )) {
+    if (!isset($_SESSION["pseudo"]) || empty($_SESSION["pseudo"])) {
         header("Location: choose-pseudo.php");
         exit;
     }
@@ -20,11 +20,11 @@ if (!(basename($_SERVER['PHP_SELF']) == "categorie.php")) {
         exit;
     }
 
-    if (!isset($_SESSION["pseudo"]) || empty($_SESSION["pseudo"] )) {
+    if (!isset($_SESSION["pseudo"]) || empty($_SESSION["pseudo"])) {
         header("Location: ../src/choose-pseudo.php");
         exit;
     }
 
 }
-    
+
 ?>

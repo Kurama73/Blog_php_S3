@@ -34,18 +34,21 @@ if (!empty($_POST["in-pseudo"])) {
 
 <!doctype html>
 <html lang="fr">
+
 <body>
 
-<div class="form-container bg-woodsmoke-800 shadow-maroon-flush-300 shadow-md">
-    <h1 class="text-2xl text-white">Choose your pseudo</h1>
+    <div class="form-container bg-woodsmoke-800 shadow-maroon-flush-300 shadow-md">
+        <h1 class="text-2xl text-white">Choose your pseudo</h1>
 
-    <form method="post" action="choose-pseudo.php">
-        <input type="text" name="in-pseudo" placeholder="Monsieur Jaloux" required class="text-white bg-woodsmoke-800 border">
-        <input type="submit" name="sb-login" value="Sign Up" class="form-button text-white bg-maroon-flush-700 cursor-pointer border">
-    </form>
+        <form method="post" action="choose-pseudo.php">
+            <input type="text" name="in-pseudo" placeholder="Monsieur Jaloux" required
+                class="text-white bg-woodsmoke-800 border">
+            <input type="submit" name="sb-login" value="Sign Up"
+                class="form-button text-white bg-maroon-flush-700 cursor-pointer border">
+        </form>
 
-</div>
+    </div>
 
 </body>
-</html>
 
+</html>

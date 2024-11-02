@@ -72,25 +72,31 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
 
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
 </head>
+
 <body>
 
-<div class="form-container bg-woodsmoke-800 shadow-maroon-flush-300 shadow-md">
-    <h1 class="text-3xl text-white">Login</h1>
+    <div class="form-container bg-woodsmoke-800 shadow-maroon-flush-300 shadow-md">
+        <h1 class="text-3xl text-white">Login</h1>
 
-    <form method="post" action="index.php">
-        <input type="email" name="in-email" placeholder="E-mail" required class="text-white bg-woodsmoke-800 border">
-        <input type="password" name="in-password" placeholder="Password" required class="text-white bg-woodsmoke-800 border">
-        <input type="submit" name="sb-login" value="Log in" class="form-button text-white bg-maroon-flush-700 cursor-pointer border">
-    </form>
+        <form method="post" action="index.php">
+            <input type="email" name="in-email" placeholder="E-mail" required
+                class="text-white bg-woodsmoke-800 border">
+            <input type="password" name="in-password" placeholder="Password" required
+                class="text-white bg-woodsmoke-800 border">
+            <input type="submit" name="sb-login" value="Log in"
+                class="form-button text-white bg-maroon-flush-700 cursor-pointer border">
+        </form>
 
-    <p class="text-xs text-red-600"><?php echo $ex_password ?></p>
+        <p class="text-xs text-red-600"><?php echo $ex_password ?></p>
 
-</div>
+    </div>
 
 </body>
+
 </html>
