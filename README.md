@@ -1,2 +1,3 @@
-- Base de données dans ressources
+- Base de données dans le dossier "bdd"
+- PowerPoint de présentation dans le dossier "resources"
 - Admin : userpikachu@gmail.com | pika
