@@ -48,41 +48,41 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - add article</title>
+    <title>Add article / Blog.kpf</title>
 </head>
 
 <body class="bg-woodsmoke-800 flex justify-center items-center min-h-screen">
 
-    <main class="max-w-2xl m-auto px-4">
+    <main class="max-w-2xl m-auto px-4 my-8">
 
-        <div class="p-8 rounded-xl shadow-lg w-full max-w-2xl m-auto px-4 my-9 bg-woodsmoke-800">
+        <div class="article rounded-xl p-5">
             <form action="add-article.php" method="post" class="space-y-6">
 
                 <!-- Title -->
-                <label for="titre" class="block text-white font-bold">
+                <label for="titre">
                     Title (100 char. max)
                     <input type="text" id="titre" name="titre" maxlength="100" required
-                        class="mt-2 p-3 w-full border bg-woodsmoke-800 border-maroon-flush-700 rounded-lg focus:outline-none">
+                        class="text-field flex flex-col w-full mt-1">
                 </label>
 
                 <!-- Article -->
                 <div>
 
-                    <label for="article" class="block text-white font-bold">Article (280 max char)</label>
+                    <label for="article">Article (280 max char)</label>
 
                     <textarea type="text" id="article" name="article" maxlength="280" rows="10" style=resize:none
                         required
-                        class="mt-2 p-3 w-full border text-white bg-woodsmoke-800 border-maroon-flush-700 rounded-lg focus:outline-none"></textarea>
+                        class="text-field flex flex-col w-full mt-1"></textarea>
                 </div>
 
 
                 <!-- Categories -->
                 <div>
 
-                    <label for="categorie" class="block text-white font-bold">Choose 1 or more category</label>
+                    <label for="categorie">Choose 1 or more category</label>
 
                     <select multiple id="categorie" name="categorie[]" required
-                        class="mt-2 p-3 w-full text-white border bg-woodsmoke-800 border-maroon-flush-700 rounded-lg focus:outline-none">
+                        class="text-field flex flex-col w-full mt-1">
 
                         <?php
                         require "pdo.php";
@@ -100,22 +100,23 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]
                 <!-- Actions -->
                 <div class="flex justify-between">
 
-                    <input type="submit" value="Post"
-                        class="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 focus:outline-none cursor-pointer">
-
                     <a href="home.php"
-                        class="text-white py-3 px-6 rounded-lg bg-maroon-flush-700 hover:bg-maroon-flush-800 cursor-pointer">
+                        class="confirm-button bg-opacity-0 bg-primary-100 hover:bg-opacity-10 font-bold w-1/6 mx-0 text-center">
                         Cancel
                     </a>
+
+                    <input type="submit" value="Post"
+                           class="confirm-button w-1/6 mx-0">
 
                 </div>
 
             </form>
         </div>
 
+        <?php require_once('footer.php'); ?>
+
     </main>
 
-    <?php require_once('footer.php'); ?>
 
 </body>
 

@@ -71,12 +71,12 @@ if (isset($_POST['view_articles'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crud</title>
+    <title>CRUD / Blog.kpf</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="max-w-2xl m-auto px-4">
-    <main class="flex flex-col justify-center items-center">
+<body>
+    <main class="max-w-2xl m-auto px-4 flex flex-col">
 
         <!-- Title -->
         <div class="home-header flex justify-center my-9">
@@ -88,13 +88,13 @@ if (isset($_POST['view_articles'])) {
             <div class="flex items-center">
                 <label type="text" name="lb-category" class="mr-2 text-white">Add a new category: </label>
                 <input type="text" name="name" placeholder="Category name" required min="1" max="20"
-                    class="border border-gray-300 bg-woodsmoke-800 p-2 rounded mr-2 text-white">
-                <button type="submit" name="add" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Add</button>
+                    class="text-field rounded-l-xl rounded-r-none">
+                <button type="submit" name="add" class="text-field rounded-r-xl rounded-l-none border-l-0">Add</button>
             </div>
         </form>
 
         <!-- Table -->
-        <table class="bg-woodsmoke-800 text-white w-3/5">
+        <table class="article rounded-xl my-5">
             <thead>
                 <tr>
                     <th class="px-4 py-2">ID</th>
@@ -113,10 +113,10 @@ if (isset($_POST['view_articles'])) {
                             <form method="POST" class="inline">
                                 <input type="hidden" name="id_categorie" value="<?= $categorie['id_categorie'] ?>">
                                 <input type="text" name="name" value="<?= htmlspecialchars($categorie['nom']) ?>" required
-                                    class="border border-gray-300 bg-woodsmoke-800 p-2 rounded mr-2 w-full">
+                                    class="text-field">
                         </td>
 
-                        <td class="px-4 py-2 w-2/5">
+                        <td class="px-4 w-1/2">
                             <div class="flex space-x-2">
                                 <button type="submit" name="update"
                                     class="bg-blue-500 text-white px-4 py-2 rounded-lg">Update</button>
@@ -125,7 +125,7 @@ if (isset($_POST['view_articles'])) {
                                     onclick="return confirm('Are you sure to remove this category?');">Remove</button>
 
                                 <button type="submit" name="view_articles"
-                                    class="bg-blue-500 text-white px-4 py-2 rounded-lg">View Articles</button>
+                                    class="bg-blue-500 text-white px-4 rounded-lg">View Articles</button>
                             </div>
                             </form>
                         </td>
@@ -161,6 +161,8 @@ if (isset($_POST['view_articles'])) {
                 </table>
             </div>
         <?php endif; ?>
+
+        <?php require_once('../src/footer.php'); ?>
 
     </main>
 </body>
