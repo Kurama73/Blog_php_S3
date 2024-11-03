@@ -2,6 +2,7 @@
 session_start();
 require_once('pdo.php');
 
+
 if (!(basename($_SERVER['PHP_SELF']) == "index.php") && !(basename($_SERVER['PHP_SELF']) == "choose-pseudo.php")) {
     require('redirection.php');
 }
@@ -12,13 +13,12 @@ if (isset($_POST['log-out'])) {
     if ($_SESSION["isAdmin"]) {
         $_SESSION["isConnected"] = false;
         header("Location: ../src/index.php");
-        exit;
     } else {
 
         $_SESSION["isConnected"] = false;
         header("Location: index.php");
-        exit;
     }
+    exit;
 }
 
 ?>
@@ -32,7 +32,7 @@ if (isset($_POST['log-out'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap"
-        rel="stylesheet">
+          rel="stylesheet">
 
     <?php if (!(basename($_SERVER['PHP_SELF']) == "categorie.php")): ?>
         <link href="output.css" rel="stylesheet">
@@ -47,10 +47,10 @@ if (isset($_POST['log-out'])) {
 
     <?php if (!$_SESSION["isAdmin"]): ?>
         <h1 class="text-2xl font-bold"><a href="home.php">Blog.kpf</a></h1>
-    <?php endif; ?>
 
-    <?php if ($_SESSION["isAdmin"]): ?>
+    <?php elseif ($_SESSION["isAdmin"]): ?>
         <h1 class="text-2xl font-bold"><a href="../src/home.php">Blog.kpf</a></h1>
+
     <?php endif; ?>
 
     <form method="post">
@@ -59,34 +59,17 @@ if (isset($_POST['log-out'])) {
 
         <?php if (!(basename($_SERVER['PHP_SELF']) == "index.php")): ?>
             <?php if (!$_SESSION["isAdmin"]): ?>
-            <input type="image" src="images/icons/gi_logout.svg" alt="logout">
+                <input type="image" src="images/icons/gi_logout.svg" alt="logout">
             <?php endif; ?>
 
             <?php if ($_SESSION["isAdmin"]): ?>
-            <input type="image" src="../src/images/icons/gi_logout.svg" alt="logout">
+                <input type="image" src="../src/images/icons/gi_logout.svg" alt="logout">
             <?php endif; ?>
         <?php endif; ?>
 
-        <?php if ($_SESSION["isAdmin"]): ?>
-            <h1 class="text-2xl font-bold text-white"><a href="../src/home.php">Blog.kpf</a></h1>
-        <?php endif; ?>
+    </form>
 
-        <form method="post">
-
-            <input type="hidden" name="log-out" />
-
-            <?php if (!(basename($_SERVER['PHP_SELF']) == "index.php")): ?>
-                <?php if (!$_SESSION["isAdmin"]): ?>
-                    <input type="image" src="images/icons/gi_logout.svg" alt="logout">
-                <?php endif; ?>
-
-                <?php if ($_SESSION["isAdmin"]): ?>
-                    <input type="image" src="../src/images/icons/gi_logout.svg" alt="logout">
-                <?php endif; ?>
-            <?php endif; ?>
-
-        </form>
-    </header>
+</header>
 
 </body>
 

@@ -34,11 +34,16 @@ if (!empty($_POST["in-pseudo"])) {
 
 <!doctype html>
 <html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Username / Blog.kpf</title>
+</head>
 
 <body>
 
 <div class="main-container">
-    <h1 class="text-2xl">Choose your username</h1>
+    <h1 class="text-2xl mb-5">Choose your username</h1>
 
     <form method="post" action="choose-pseudo.php">
         <label class="tf-label">
