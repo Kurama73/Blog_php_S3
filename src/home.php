@@ -58,13 +58,15 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
 
-<main class="max-w-2xl m-auto px-4">
+    <main class="max-w-2xl m-auto px-4">
 
     <div class="home-header flex justify-between items-center my-9">
 
@@ -76,10 +78,9 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
                        class="rounded-2xl px-3.5 mx-3 cursor-pointer hover:bg-maroon-flush-700">
 
             </form>
-        <?php endif; ?>
 
-        <!-- Filter -->
-        <form method="get" action="home.php" class="flex w-7/12">
+            <!-- Button create an article -->
+            <form method="post" action="add-article.php">
 
             <img src="./images/icons/gi_search.svg" alt="search-icon" class="text-field rounded-l-xl rounded-r-none border-r-0">
 
@@ -92,10 +93,9 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
             <input type="image" src="./images/icons/gi_filter.svg" alt="filter-con"
                    class="text-field sm:hidden rounded-r-xl rounded-l-none cursor-pointer">
 
-        </form>
+            </form>
 
-        <!-- Button create an article -->
-        <form method="post" action="add-article.php">
+        </div>
 
             <input type="submit" name="bt-create-article" value="Create an article"
                    class="confirm-button hidden sm:flex w-full">
@@ -103,7 +103,15 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
             <input type="image" src="./images/icons/gi_post.svg" alt="create-article-icon"
                    class="confirm-button sm:hidden w-full">
 
-        </form>
+            <?php foreach ($article as $row): ?>
+                <?php
+                if ($row == $article[0]) {
+                    $border_radius = "rounded-t-xl";
+                } else if ($row == $article[$nb_row - 1]) {
+                    $border_radius = "rounded-b-xl";
+                } else {
+                    $border_radius = "rounded-none";
+                }
 
     </div>
 
@@ -167,10 +175,11 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
     </div>
 
 
-    <p class="text-xl"><?php echo $ex_results; ?></p>
+        <p class="text-xl"><?php echo $ex_results; ?></p>
 
-    <?php require_once('footer.php'); ?>
-</main>
+        <?php require_once('footer.php'); ?>
+    </main>
 
 </body>
+
 </html>

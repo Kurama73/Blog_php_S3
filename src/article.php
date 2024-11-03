@@ -4,7 +4,7 @@ require_once('header.php');
 require "redirection.php";
 
 // Récupération de l'article via son ID
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 $filter = isset($_GET['filter']) ? $_GET['filter'] : '';
 
 $stmt = $con->prepare("
@@ -53,9 +53,11 @@ if (!empty($_POST["comment"])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title><?php echo htmlspecialchars($article['titre']); ?></title>
 </head>
+
 <body>
 <main class="max-w-2xl m-auto my-8 px-4 relative">
 
@@ -71,9 +73,6 @@ if (!empty($_POST["comment"])) {
             <p><?php echo htmlspecialchars($article[0]['pseudo']); ?>
                 / <?php echo htmlspecialchars($article[0]['date_formatee']); ?></p>
         </div>
-        <h1 class="font-bold mb-1"><?php echo htmlspecialchars($article[0]['titre']); ?></h1>
-        <p><?php echo nl2br(htmlspecialchars($article[0]['description'])); ?></p>
-    </div>
 
 
     <!-- Add comment -->
@@ -113,4 +112,5 @@ if (!empty($_POST["comment"])) {
     </div>
 </main>
 </body>
+
 </html>

@@ -34,6 +34,7 @@ if (!empty($_POST["in-pseudo"])) {
 
 <!doctype html>
 <html lang="fr">
+
 <body>
 
 <div class="main-container">
@@ -47,8 +48,8 @@ if (!empty($_POST["in-pseudo"])) {
         <input type="submit" name="sb-login" value="Sign Up" class="confirm-button">
     </form>
 
-</div>
+    </div>
 
 </body>
-</html>
 
+</html>

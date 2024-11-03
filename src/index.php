@@ -72,11 +72,13 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
 
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
 </head>
+
 <body>
 
 <div class="main-container">
@@ -96,9 +98,10 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
         <input type="submit" name="sb-login" value="Login" class="confirm-button">
     </form>
 
-    <p class="text-xs text-red-600"><?php echo $ex_password ?></p>
+        <p class="text-xs text-red-600"><?php echo $ex_password ?></p>
 
-</div>
+    </div>
 
 </body>
+
 </html>

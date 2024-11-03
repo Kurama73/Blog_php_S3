@@ -43,77 +43,80 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["article"]
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - add article</title>
 </head>
+
 <body class="bg-woodsmoke-800 flex justify-center items-center min-h-screen">
 
-<main class="max-w-2xl m-auto px-4">
+    <main class="max-w-2xl m-auto px-4">
 
-    <div class="p-8 rounded-xl shadow-lg w-full max-w-2xl m-auto px-4 my-9 bg-woodsmoke-800">
-        <form action="add-article.php" method="post" class="space-y-6">
+        <div class="p-8 rounded-xl shadow-lg w-full max-w-2xl m-auto px-4 my-9 bg-woodsmoke-800">
+            <form action="add-article.php" method="post" class="space-y-6">
 
-            <!-- Title -->
-            <label for="titre" class="block text-white font-bold">
-                Title (100 char. max)
-                <input type="text" id="titre" name="titre" maxlength="100" required
-                       class="mt-2 p-3 w-full border bg-woodsmoke-800 border-maroon-flush-700 rounded-lg focus:outline-none">
-            </label>
+                <!-- Title -->
+                <label for="titre" class="block text-white font-bold">
+                    Title (100 char. max)
+                    <input type="text" id="titre" name="titre" maxlength="100" required
+                        class="mt-2 p-3 w-full border bg-woodsmoke-800 border-maroon-flush-700 rounded-lg focus:outline-none">
+                </label>
 
-            <!-- Article -->
-            <div>
+                <!-- Article -->
+                <div>
 
-                <label for="article" class="block text-white font-bold">Article (280 max char)</label>
+                    <label for="article" class="block text-white font-bold">Article (280 max char)</label>
 
-                <textarea type="text" id="article" name="article" maxlength="280" rows="10"
-                          style=resize:none required
-                          class="mt-2 p-3 w-full border text-white bg-woodsmoke-800 border-maroon-flush-700 rounded-lg focus:outline-none"></textarea>
-            </div>
+                    <textarea type="text" id="article" name="article" maxlength="280" rows="10" style=resize:none
+                        required
+                        class="mt-2 p-3 w-full border text-white bg-woodsmoke-800 border-maroon-flush-700 rounded-lg focus:outline-none"></textarea>
+                </div>
 
 
-            <!-- Categories -->
-            <div>
+                <!-- Categories -->
+                <div>
 
-                <label for="categorie" class="block text-white font-bold">Choose 1 or more category</label>
+                    <label for="categorie" class="block text-white font-bold">Choose 1 or more category</label>
 
-                <select multiple id="categorie" name="categorie[]" required
+                    <select multiple id="categorie" name="categorie[]" required
                         class="mt-2 p-3 w-full text-white border bg-woodsmoke-800 border-maroon-flush-700 rounded-lg focus:outline-none">
 
-                    <?php
-                    require "pdo.php";
-                    $stmt = $con->prepare("SELECT id_categorie, nom FROM categorie");
-                    $stmt->execute();
-                    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                    foreach ($categories as $categorie) {
-                        echo "<option value='" . $categorie["id_categorie"] . "'>" . $categorie["nom"] . "</option>";
-                    }
-                    ?>
-                </select>
+                        <?php
+                        require "pdo.php";
+                        $stmt = $con->prepare("SELECT id_categorie, nom FROM categorie");
+                        $stmt->execute();
+                        $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($categories as $categorie) {
+                            echo "<option value='" . $categorie["id_categorie"] . "'>" . $categorie["nom"] . "</option>";
+                        }
+                        ?>
+                    </select>
 
-            </div>
-            
-            <!-- Actions -->
-            <div class="flex justify-between">
+                </div>
 
-                <input type="submit" value="Post"
-                       class="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 focus:outline-none cursor-pointer">
+                <!-- Actions -->
+                <div class="flex justify-between">
 
-                <a href="home.php"
-                   class="text-white py-3 px-6 rounded-lg bg-maroon-flush-700 hover:bg-maroon-flush-800 cursor-pointer">
-                   Cancel
-                </a>
+                    <input type="submit" value="Post"
+                        class="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 focus:outline-none cursor-pointer">
 
-            </div>
+                    <a href="home.php"
+                        class="text-white py-3 px-6 rounded-lg bg-maroon-flush-700 hover:bg-maroon-flush-800 cursor-pointer">
+                        Cancel
+                    </a>
 
-        </form>
-    </div>
+                </div>
 
-</main>
+            </form>
+        </div>
 
-<?php require_once('footer.php'); ?>
+    </main>
+
+    <?php require_once('footer.php'); ?>
 
 </body>
+
 </html>
