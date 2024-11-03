@@ -57,15 +57,16 @@ if (!empty($_POST["comment"])) {
     <title><?php echo htmlspecialchars($article['titre']); ?></title>
 </head>
 <body>
-<main class="max-w-2xl m-auto px-4 relative">
-    
+<main class="max-w-2xl m-auto my-8 px-4 relative">
+
     <!-- Return Button -->
-    <a href="home.php" class="absolute left-0 top-0 mt-9 -ml-14 flex items-center justify-center w-10 h-10 bg-gray-100 text-gray-700 rounded-full shadow-lg hover:bg-maroon-flush-700 hover:scale-105 transition-transform duration-200">
+    <a href="home.php"
+       class="absolute left-0 top-0 mt-9 -ml-14 flex items-center justify-center w-10 h-10 bg-gray-100 text-gray-700 rounded-full shadow-lg hover:bg-maroon-flush-700 hover:scale-105 transition-transform duration-200">
         <span class="text-xl">&larr;</span>
     </a>
 
     <!-- Article -->
-    <div class="rounded-xl w-full max-w-2xl m-auto px-4 py-5 my-5 bg-woodsmoke-800 text-white shadow-maroon-flush-300 shadow-md">
+    <div class="article rounded-xl">
         <div class="text-xs mb-2">
             <p><?php echo htmlspecialchars($article[0]['pseudo']); ?>
                 / <?php echo htmlspecialchars($article[0]['date_formatee']); ?></p>
@@ -74,38 +75,41 @@ if (!empty($_POST["comment"])) {
         <p><?php echo nl2br(htmlspecialchars($article[0]['description'])); ?></p>
     </div>
 
+
+    <!-- Add comment -->
     <div>
-        <!-- Ajout commentaire -->
-        <div>
-            <form method="POST" class="flex space-x-2">
-                <textarea name="comment" maxlength="280" rows="3" placeholder="Add a comment"
-                          class="w-full resize-none px-4 py-3 rounded-sm bg-woodsmoke-800 shadow-maroon-flush-300 shadow-md"></textarea>
-                <button type="submit" class="bg-blue-600 text-white rounded-lg px-3 py-1 hover:bg-blue-700">Send</button>
-            </form>
-        </div>
+        <form method="POST" class="flex space-x-2">
 
-        <!-- Liste des commentaires -->
-        <div class="w-full bg-woodsmoke-800 rounded-xl shadow-maroon-flush-300 shadow-md mt-5">
-            <h3 class="text-xl font-semibold text-white p-4 border-b border-gray-300">Comments</h3>
+            <textarea name="comment" maxlength="280" rows="3" placeholder="Add a comment" class="text-field w-full border-0 outline-0 resize-none"></textarea>
 
-            <?php foreach ($comments as $index => $comment): ?>
-                <div class="p-4 <?php echo ($index < count($comments) - 1) ? 'border-b border-gray-300' : ''; ?>">
-                    <p class="text-sm text-gray-500 mb-1">
-                        <?php echo htmlspecialchars($comment['pseudo']); ?> / <?php echo htmlspecialchars($comment['date']); ?>
-                    </p>
-                    <p class="text-white mb-2"><?php echo nl2br(htmlspecialchars($comment['contenu'])); ?></p>
+            <button type="submit" class="bg-blue-600 text-white rounded-lg px-3 py-1 hover:bg-blue-700">Send</button>
+        </form>
+    </div>
 
-                    <?php if (strtolower($comment['pseudo']) == strtolower($_SESSION["pseudo"])): ?>
-                        <form method="post" class="flex items-center mt-2">
-                            <input type="hidden" name="id_commentaire" value="<?php echo $comment['id_commentaire']; ?>">
-                            <button type="submit" name="delete-article" class="text-red-500 hover:text-red-700 flex items-center">
-                                <img src="./images/icons/gi_delete.svg" alt="delete-icon" class="w-4 h-4 mr-1">Delete
-                            </button>
-                        </form>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
-        </div>
+    <!-- Liste des commentaires -->
+    <div class="w-full bg-woodsmoke-800 rounded-xl shadow-maroon-flush-300 shadow-md mt-5">
+        <h3 class="text-xl font-semibold text-white p-4 border-b border-gray-300">Comments</h3>
+
+        <?php foreach ($comments as $index => $comment): ?>
+            <div class="p-4 <?php echo ($index < count($comments) - 1) ? 'border-b border-gray-300' : ''; ?>">
+                <p class="text-sm text-gray-500 mb-1">
+                    <?php echo htmlspecialchars($comment['pseudo']); ?>
+                    / <?php echo htmlspecialchars($comment['date']); ?>
+                </p>
+                <p class="text-white mb-2"><?php echo nl2br(htmlspecialchars($comment['contenu'])); ?></p>
+
+                <?php if (strtolower($comment['pseudo']) == strtolower($_SESSION["pseudo"])): ?>
+                    <form method="post" class="flex items-center mt-2">
+                        <input type="hidden" name="id_commentaire"
+                               value="<?php echo $comment['id_commentaire']; ?>">
+                        <button type="submit" name="delete-article"
+                                class="text-red-500 hover:text-red-700 flex items-center">
+                            <img src="./images/icons/gi_delete.svg" alt="delete-icon" class="w-4 h-4 mr-1">Delete
+                        </button>
+                    </form>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
     </div>
 </main>
 </body>

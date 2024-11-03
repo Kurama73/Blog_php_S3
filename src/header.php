@@ -41,14 +41,14 @@ if (isset($_POST['log-out'])) {
 </head>
 <body class="font-ubuntu">
 
-<header class="flex justify-between px-5 py-7 shadow-md bg-woodsmoke-900 shadow-blue-gem-400">
+<header class="flex justify-between px-5 py-7 bg-primary-950 border-b-2 border-b-primary-300">
 
     <?php if (!$_SESSION["isAdmin"]): ?>
-        <h1 class="text-2xl font-bold text-white"><a href="home.php">Blog.kpf</a></h1>
+        <h1 class="text-2xl font-bold"><a href="home.php">Blog.kpf</a></h1>
     <?php endif; ?>
 
     <?php if ($_SESSION["isAdmin"]): ?>
-        <h1 class="text-2xl font-bold text-white"><a href="../src/home.php">Blog.kpf</a></h1>
+        <h1 class="text-2xl font-bold"><a href="../src/home.php">Blog.kpf</a></h1>
     <?php endif; ?>
 
     <form method="post">

@@ -79,13 +79,21 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
 </head>
 <body>
 
-<div class="form-container bg-woodsmoke-800 shadow-maroon-flush-300 shadow-md">
-    <h1 class="text-3xl text-white">Login</h1>
+<div class="main-container">
+    <h1 class="text-2xl">Login</h1>
 
     <form method="post" action="index.php">
-        <input type="email" name="in-email" placeholder="E-mail" required class="text-white bg-woodsmoke-800 border">
-        <input type="password" name="in-password" placeholder="Password" required class="text-white bg-woodsmoke-800 border">
-        <input type="submit" name="sb-login" value="Log in" class="form-button text-white bg-maroon-flush-700 cursor-pointer border">
+        <label class="tf-label">
+            Email
+            <input type="email" name="in-email" placeholder="Your email" required class="text-field mt-1">
+        </label>
+
+        <label class="tf-label">
+            Password
+            <input type="password" name="in-password" placeholder="Your password" required class="text-field mt-1">
+        </label>
+
+        <input type="submit" name="sb-login" value="Login" class="confirm-button">
     </form>
 
     <p class="text-xs text-red-600"><?php echo $ex_password ?></p>
