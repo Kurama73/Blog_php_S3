@@ -62,27 +62,30 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home / Blog.kpf</title>
 </head>
 
 <body>
 
-    <main class="max-w-2xl m-auto px-4">
+<main class="max-w-2xl m-auto px-4">
 
     <div class="home-header flex justify-between items-center my-9">
 
         <!-- CRUD -->
-        <?php if ($_SESSION["isAdmin"] == true): ?>
+        <?php if ($_SESSION["isAdmin"]): ?>
             <form method="post" action="../admin/categorie.php">
 
-                <input type="submit" value="Access to CRUD"
-                       class="rounded-2xl px-3.5 mx-3 cursor-pointer hover:bg-maroon-flush-700">
+                <input type="submit" value="CRUD"
+                       class="confirm-button bg-primary-800 w-full">
 
             </form>
+        <?php endif; ?>
 
-            <!-- Button create an article -->
-            <form method="post" action="add-article.php">
+        <!-- Filter -->
+        <form method="get" action="home.php" class="flex w-7/12">
 
-            <img src="./images/icons/gi_search.svg" alt="search-icon" class="text-field rounded-l-xl rounded-r-none border-r-0">
+            <img src="./images/icons/gi_search.svg" alt="search-icon"
+                 class="text-field rounded-l-xl rounded-r-none border-r-0 pr-0">
 
             <input type="text" name="filter" placeholder="Filter by pseudo"
                    value="<?php echo htmlspecialchars($filter); ?>" class="text-field w-full rounded-none border-x-0">
@@ -93,9 +96,10 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
             <input type="image" src="./images/icons/gi_filter.svg" alt="filter-con"
                    class="text-field sm:hidden rounded-r-xl rounded-l-none cursor-pointer">
 
-            </form>
+        </form>
 
-        </div>
+        <!-- Button create an article -->
+        <form method="post" action="add-article.php">
 
             <input type="submit" name="bt-create-article" value="Create an article"
                    class="confirm-button hidden sm:flex w-full">
@@ -103,15 +107,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
             <input type="image" src="./images/icons/gi_post.svg" alt="create-article-icon"
                    class="confirm-button sm:hidden w-full">
 
-            <?php foreach ($article as $row): ?>
-                <?php
-                if ($row == $article[0]) {
-                    $border_radius = "rounded-t-xl";
-                } else if ($row == $article[$nb_row - 1]) {
-                    $border_radius = "rounded-b-xl";
-                } else {
-                    $border_radius = "rounded-none";
-                }
+        </form>
 
     </div>
 
@@ -158,7 +154,7 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
                         </form>
                     <?php endif; ?>
 
-                    <div class="px-4 py-5">
+                    <div class="p-3">
                         <div class="text-xs mb-2">
                             <p class="font-medium"><?php echo $row['pseudo'] ?> / <?php echo $row['date_formatee'] ?>
                                 / <?php echo $categoryNames ?></p>
@@ -175,10 +171,10 @@ if (isset($_POST["delete-article"]) && isset($_POST["id-article"])) {
     </div>
 
 
-        <p class="text-xl"><?php echo $ex_results; ?></p>
+    <p class="text-xl"><?php echo $ex_results; ?></p>
 
-        <?php require_once('footer.php'); ?>
-    </main>
+    <?php require_once('footer.php'); ?>
+</main>
 
 </body>
 

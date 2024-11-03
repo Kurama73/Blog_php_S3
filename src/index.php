@@ -76,13 +76,13 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
+    <title>Login / Blog.kpf</title>
 </head>
 
 <body>
 
 <div class="main-container">
-    <h1 class="text-2xl">Login</h1>
+    <h1 class="text-2xl mb-5">Login</h1>
 
     <form method="post" action="index.php">
         <label class="tf-label">
@@ -98,9 +98,9 @@ if (!empty($_POST["in-email"]) && !empty($_POST["in-password"])) {
         <input type="submit" name="sb-login" value="Login" class="confirm-button">
     </form>
 
-        <p class="text-xs text-red-600"><?php echo $ex_password ?></p>
+    <p class="text-xs text-red-600"><?php echo $ex_password ?></p>
 
-    </div>
+</div>
 
 </body>
 
